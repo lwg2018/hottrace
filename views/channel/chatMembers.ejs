@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="LIM-YOUN-SOO" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>채팅방 참여자</title>
+
+  <link rel="stylesheet" href="../stylesheets/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="../stylesheets/chattingList.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/channel/channel.js"></script>
+  <!-- <script srt="public\js\channel\channel.js"></script> -->
+</head>
+<body>
+  <div class="container app">
+    <div class="row app-one">
+      <div>
+        <div class="side-one">
+          <div class="row heading">
+            <div class="col-sm-4 col-xs-4 heading-avatar">
+              <div class="heading-avatar-icon">
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"> 채팅방 참여자
+              </div>
+            </div>
+            <div class="col-sm-1 col-xs-1  heading-dot  pull-right">
+              <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="col-sm-2 col-xs-2 heading-compose  pull-right">
+              <i class="fa fa-comments fa-2x  pull-right" aria-hidden="true"></i>
+            </div>
+          </div>
+
+          <div class="row searchBox">
+            <div class="col-sm-12 searchBox-inner">
+              <div class="form-group has-feedback">
+                <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Search">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row sideBar">
+            <%
+            for(var i = 0; i < friends.length; i++)
+            {
+            %>
+            <div class="row sideBar-body" id="chantInfo_div" onclick="joinChatRoom();">
+              <div class="col-sm-3 col-xs-3 sideBar-avatar">
+                <div class="avatar-icon">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                </div>
+              </div>
+              <input type="hidden" id="member_no" value=<%= friends[i].friend_no %>>
+              <div class="col-sm-9 col-xs-9 sideBar-main">
+                <div class="row">
+                  <div class="col-sm-8 col-xs-8 sideBar-desc">
+                    <span class="name-meta" id="title"><%= friends[i].member_name %></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <%
+            }
+            %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

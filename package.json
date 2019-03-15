@@ -1,0 +1,31 @@
+{
+  "name": "gnc",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "dotenv": "^6.2.0",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "express-session": "^1.15.6",
+    "http-errors": "~1.6.2",
+    "moment": "^2.22.2",
+    "mongodb": "^3.1.10",
+    "morgan": "^1.9.1",
+    "mssql": "^4.3.0",
+    "nodemon": "^1.18.2",
+    "npm": "^6.5.0",
+    "socket.io": "^2.2.0",
+    "tedious": "^2.6.3",
+    "tedious-connection-pool": "^1.0.5"
+  },
+  "main": "app.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

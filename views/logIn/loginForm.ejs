@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+		<title>What3Words</title>
+    <link rel="stylesheet" href="../stylesheets/style0.css" />
+		<link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<!-- <script type="text/javascript" src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
+		<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js?callback=setLoginBtn" charset="utf-8"></script>
+		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script> -->
+	</head>
+
+	<body class="background_logo">
+		<!-- <div class="login_form">
+			<p><input class="login_input" type="email" placeholder="이메일" id="member_email"></p>
+			<p><input class="login_input" type="password" placeholder="비밀번호" id="member_pwd"></p>
+			<p><a class="lbutton">로그인</a><a class="lbutton">회원가입</a></p> -->
+
+
+			<!-- 네이버 / 카카오 / 구글 로그인 -->
+			<!-- <p><a align="center" id="naverIdLogin" style="margin-left:15px"></a>
+			<image align="center" id="kakao-login-btn" src="/images/kl.png" style="margin:-40px 20px 0px 20px;cursor:pointer;width:50px;height:50px" onclick="kLogin()">
+			<image align="center" id="firebaseui-auth-contanier" src="/images/glogin.png" style="margin-top:-40px;cursor:pointer;width:50px;height:50px;" onclick="GoogleLogin()">
+			</p>
+		</div> -->
+		<div class="container">
+        <div class="card card-container">
+            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin" action="/login" method='post'>
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="email" name="email" class="form-control" placeholder="이메일" required autofocus>
+                <input type="password" name="password" class="form-control" placeholder="비밀번호" required>
+                <div id="remember" class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> 이메일 저장
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">로 그 인</button>
+            </form><!-- /form -->
+            <a href="#" class="forgot-password">
+                가입하기
+            </a>
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+	</body>
+</html>

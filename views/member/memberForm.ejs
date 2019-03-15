@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <!-- header include   -->
+    <% include ../inc1 %>
+
+    <div class="content" style="margin-top:90px;">
+      <form action="/signUp" method="post">
+        닉네임 : <input type="text" name="name"><br>
+        아이디 : <input type="text" name="id"><br>
+        비밀번호 : <input type="text" name="pwd"><br>
+        <input type="submit" name="signUp" value="가입">
+      </form>
+    </div>
+  </body>
+</html>

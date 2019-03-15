@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="LIM-YOUN-SOO" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>대화상대 초대</title>
+
+  <link rel="stylesheet" href="../stylesheets/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="../stylesheets/chattingList.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/channel/channel.js"></script>
+  <!-- <script srt="public\js\channel\channel.js"></script> -->
+</head>
+<style>
+  ul {
+    list-style: none;
+    padding-inline-start: 0px;
+  }
+
+  .invitation_body {
+    height: 70px;
+    /* overflow-x: scroll; */
+    /* overflow: hidden; */
+    /* -ms-overflow-style: none; */
+  }
+
+ /* .invitation_body::-webkit-scrollbar {
+   display: none !important;
+ } */
+
+  #invitation_list {
+    padding: 12px !important;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  #invitation_list li {
+    display: inline-block;
+    width: 16%;
+    height: 55px;
+  }
+
+  .heading-check {
+    width: 10%;
+    float: right !important;
+    cursor: pointer;
+  }
+
+  .heading-check span{
+    line-height: 55px;
+    text-align: center;
+  }
+
+  .heading-friends-icon {
+    opacity: 0.8;
+    /* height: 12%; */
+    /* width: 77%; */
+  }
+
+  .heading-friends-icon img{
+    border-radius: 50%;
+    height: 95%;
+    width: 80%;
+    /* height: 50px;
+    width: 50px; */
+  }
+
+  .heading-close-icon {
+    position: relative;
+    top: -54px;
+    left: 54.5%;
+  }
+
+  .heading-close-icon img {
+    border-radius: 50%;
+    height: 22px;
+    width: 22px;
+    /* position: absolute; */
+    /* top: 83px;
+    left: 11.5%; */
+    /* top: 78px;
+    left: 44px; */
+  }
+
+  .sideBar-checked {
+    float: right;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .sideBar-checked input{
+    /* display: none; */
+  }
+</style>
+
+<script>
+  function dropMember(obj) {
+    $(obj).parents('li').remove();
+  }
+
+  function cancelInvite(){
+    var chatroom_no = document.getElementById('chatroom_no').value;
+    var chatroom_title = document.getElementById('chatroom_title').value;
+    location.href='chatting?chatroom_no='+chatroom_no+'&chatroom_title='+chatroom_title;
+  }
+
+  function inviteMembers() {
+    var chatroom_no = document.getElementById('chatroom_no').value;
+    var friends = new Array();
+    $('#invitation_list > li').each(function(index){
+      friends[index] = $(this).children('.friend_no').val();
+    });
+
+    if(chatroom_no != 0){
+      console.log("chatroom no is : " + chatroom_no);
+      location.href="inviteMembers?friends=" + friends + "&chatroom_no=" + chatroom_no;
+    }else{
+      location.href="inviteMembers/openChannel?friends=" + friends;
+    }
+  }
+
+  $( document ).ready(function() {
+    $('#searchText').keyup(function(){
+      var keyword = $(this).val();
+
+      $('#friend_list li').hide();
+      $('.name-meta:contains("' + keyword + '")').closest('li').show();
+    });
+
+    var checkedBox = $('.chatInfo_div').children('.sideBar-checked').children('input');
+    $(checkedBox).click(function(e){
+      e.stopPropagation();
+      var li = $(this).parents('li');
+      var checkedBox =li.children('.chatInfo_div').children('.sideBar-checked').children('input');
+      var friend_no = li.children('.friend_no').val();
+
+      if(checkedBox.prop('checked')){
+        $("#invitation_list").append("<li><input type='hidden' class='friend_no' value='" + friend_no + "'>" +
+        "<div class='position-absolute heading-friends-icon'>" +
+          "<img src='https://bootdey.com/img/Content/avatar/avatar1.png'>" +
+        "</div>" +
+        "<div class='heading-close-icon'>" +
+          "<img src='../images/close_button.png' onclick='dropMember(this)'>" +
+        "</div></li>");
+      }else{
+        $('#invitation_list li').each(function(){
+          if($(this).children('.friend_no').val() == friend_no){
+            $(this).remove();
+          }
+        });
+      }
+    });
+
+    // var friend_list = document.querySelectorAll('#friend_list li');
+    // friend_list.forEach(function(li){
+    //   li.addEventListener('click', function(e){
+    //     var checkedBox = this.getElementsByClassName('sideBar-checked')[0].childNodes[1];
+    //     var friend_no = this.getElementsByClassName('friend_no')[0].value;
+    //
+    //     if(checkedBox.checked == true){
+    //       // console.log('체크 해제');
+    //       $('#invitation_list li').each(function(){
+    //         if($(this).children('input').val() == friend_no){
+    //           $(this).remove();
+    //           return false;
+    //         }
+    //       });
+    //       checkedBox.checked = false;
+    //     }else{
+    //       // console.log('체크');
+    //       $("#invitation_list").append("<li><input type='hidden' class='friend_no' value='" + friend_no + "'>" +
+    //       "<div class='position-absolute heading-friends-icon'>" +
+    //         "<img src='https://bootdey.com/img/Content/avatar/avatar1.png'>" +
+    //       "</div>" +
+    //       "<div class='heading-close-icon'>" +
+    //         "<img src='../images/close_button.png' onclick='dropMember(this)'>" +
+    //       "</div></li>");
+    //
+    //       checkedBox.checked = true;
+    //     }
+    //   });
+    // });
+
+    // var checkBoxs = document.querySelectorAll('.sideBar-checked input');
+    // console.log(checkBoxs);
+
+    $('#friend_list li').click(function(){
+      var checkedBox = $(this).children('.chatInfo_div').children('.sideBar-checked').children('input');
+      var friend_no = $(this).children('.chatInfo_div').children('.friend_no').val();
+
+      if(checkedBox.prop('checked')){
+        $('#invitation_list li').each(function(){
+          if($(this).children('.friend_no').val() == friend_no){
+            $(this).remove();
+            return false;
+          }
+        });
+        checkedBox.prop('checked', false);
+      }else{
+        $("#invitation_list").append("<li><input type='hidden' class='friend_no' value='" + friend_no + "'>" +
+        "<div class='position-absolute heading-friends-icon'>" +
+          "<img src='https://bootdey.com/img/Content/avatar/avatar1.png'>" +
+        "</div>" +
+        "<div class='heading-close-icon'>" +
+          "<img src='../images/close_button.png' onclick='dropMember(this)'>" +
+        "</div></li>");
+
+        checkedBox.prop('checked', true);
+      }
+    });
+    // friend_list.addEventListener('click', function(e){
+    //   console.log(e);
+    // });
+  });
+</script>
+
+<body>
+  <div class="container app">
+    <div class="row app-one">
+      <div>
+        <div class="side-one">
+          <div class="row heading">
+            <input type="hidden" id="chatroom_no" value=<%= chatroom_no %>>
+            <input type="hidden" id="chatroom_title" value=<%= chatroom_title %>>
+            <div class="col-sm-8 col-xs-8 heading-avatar">
+              <div class="heading-avatar-icon">
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"> 대화상대 초대
+              </div>
+            </div>
+            <table>
+            <td><div class="heading-check" onclick="cancelInvite()"><span>취 소</span></div></td>
+            <td><div class="heading-check" onclick="inviteMembers()"><span>확 인</span></div></td>
+          </table>
+          </div>
+
+          <div class ="invitation_body">
+            <ul id="invitation_list">
+            </ul>
+          </div>
+
+          <div class="row searchBox">
+            <div class="col-sm-12 searchBox-inner">
+              <div class="form-group has-feedback">
+                <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Search">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row sideBar">
+            <ul id="friend_list">
+              <%
+              for(var i = 0; i < friends.length; i++)
+              {
+              %>
+              <li>
+              <div class="row sideBar-body chatInfo_div">
+                <input type="hidden" class="friend_no" value=<%= friends[i].friend_no %>>
+                <div class="col-sm-3 col-xs-3 sideBar-avatar">
+                  <div class="avatar-icon">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                  </div>
+                </div>
+                <div class="col-sm-7 col-xs-7 sideBar-main">
+                  <div class="row">
+                    <div class="col-sm-7 col-xs-7 sideBar-desc">
+                      <span class="name-meta">
+                        <%= friends[i].member_name %></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-2 col-xs-2 sideBar-checked">
+                  <% if (friends[i].attend_flag == 0) { %>
+                  <input type="checkbox" id=friend_no<%= friends[i].friend_no %>><label for=friend_no<%= friends[i].friend_no %>></label>
+                  <% } %>
+                </div>
+              </div>
+            </li>
+              <%
+              }
+              %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

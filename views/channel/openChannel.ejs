@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chat</title>
+    <style>
+      .chat_log{ width: 95%; height: 200px; }
+      .name{ width: 10%; }
+      .message{ width: 70%; }
+      .chat{ width: 10%; }
+
+      .item1 { grid-area: header; padding: 20px 15px;}
+      .item2 { grid-area: content; padding: 20px 15px;}
+      .item3 { grid-area: right; padding: 5px 15px;}
+      .item4 { grid-area: footer; padding: 20px 15px;}
+
+      .grid-container {
+        display: grid;
+        grid-template-areas:
+          'header header header header header'
+          'content content content content right'
+          'footer footer footer footer  footer';
+        grid-gap: 5px;
+        background-color: #2196F3;
+        padding: 10px;
+      }
+      .grid-container > div {
+        background-color: rgba(255, 255, 255, 0.8);
+        /* text-align: center; */
+        /* font-size: 30px; */
+      }
+
+      .chatName{}
+      .chat_log{ width: 95%; height: 200px; resize: none;}
+      .name{ width: 10%;}
+      .message{ width: 80%; }
+      .chat{ width: 60px; }
+
+      .usersCnt {
+        display: block;
+        margin: 10px 0px;
+        font-weight: bold;
+      }
+
+      #userList {
+        padding: 0px;
+      }
+      #userList > li {
+        list-style: none;
+      }
+
+      #userList > li > span{
+        vertical-align: 7pt;
+      }
+    </style>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- <script src="//code.jquery.com/jquery-1.11.1.js"></script> -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  </head>
+  <body>
+    <div class="grid-container">
+      <div class="item1">
+        <h1 class="chatName"><%= title %></h1>
+      </div>
+
+      <div class="item2">
+        <div>
+          <textarea id="chatLog" class="chat_log" readonly></textarea>
+        </div>
+      </div>
+
+      <div class="item3">
+        <h4 class="usersCnt"><%= count %> 명 접속 중</h4>
+        <ol id = "userList">
+          <li><img src="images\speecher.png" width="45" height="32"><span>User1</span></li>
+          <li><img src="images\speecher.png" width="45" height="32"><span>User2</span></li>
+        </ol>
+      </div>
+
+      <!-- 채팅 로그 -->
+      <div class="item4" id="chat_text">
+        <form id="chatForm">
+          <input id="name" class="name" type="hidden">
+          <input id="message" class="message" type="text">
+          <input type="button" id="sendMessage" value="보내기"/>
+        </form>
+      </div>
+
+      <script>
+        var socket = io('/chatChannel');
+        socket.emit('joinRoom', {cId: <%= cId %>});
+        $('#sendMessage').click(function(e){
+          socket.emit('sendMsg', {cId: <%= cId %>, message: $('#message').val()});
+          $('#message').val('');
+          $('#message').focus();
+          e.preventDefault();
+        });
+
+        socket.on('receiveMsg', function(msg){
+          $('#chatLog').append(msg+'\n');
+          $('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);
+        });
+      </script>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+  <script>
+    function channelList(){
+      // /channelList
+      var form = document.user_set;
+      form.action = '/channelList';
+      form.user_id.value = 'eric';
+      form.method = 'post';
+      form.submit();
+    }
+  </script>
+  <input type="checkbox" id="menuToggle">
+  <header>
+        <div id="brand">
+            <table width="100%" border="0">
+                <tr height="3px;"><td colspan="6"></td></tr>
+                <tr><td width="3%"></td>
+                    <td width="20%">
+                          <a href="/"><img src="images/topicon_gi.png" border="0" style="height:25px;" /></a>
+                    </td>
+                    <td width="20%">
+                          <a href="/post_select"><img src="images/topicon_post.gif" border="0" style="height:25px;" /></a>
+                    </td>
+                    <td width="20%">
+                          <a href="javascript:channelList()"><img src="images/topicon_chat.png" border="0" style="height:25px;" /></a>
+                    </td>
+                    <td width="20%">
+                    </td>
+                    <td width="17%"></td>
+                </tr>
+            </table>
+        </div>
+        <div style="clear:both;"></div>
+        <div style="padding:0px;margin:0px;">
+            <table style="width:100%;border:0px;">
+                <tr height="20px">
+                    <td width="3%;"></td>
+                    <td width="50px;" text-align="center" vertical-align="bottom;"><img src="images/icon_search.png" border="0"  style="height:12px;"  onclick="searchContents()"  /></td>
+                    <td width="89%" text-align="center">
+                        <input type="text" style="width:90%;height:20px;background-color:transparent;border:solid 0px #0CC738;border-bottom:solid 1px #DDDDDD;" name="searchtext1" id="searchtext1" value=" " onkeypress="return runScript(event)"  />
+                    </td>
+                    <td width="3%;" text-align="center" vertical-align="bottom;"></td>
+                </tr>
+            </table>
+        </div>
+        <label for="menuToggle" class="menu-icon">&#9776;</label>
+  </header>
+
+  <nav class="menu">
+    <form name="user_set">
+      <input type="hidden" name="user_id">
+    </form>
+    <ul>
+    	<li><a href="/">HOME</a></li>
+      <li><a href="/select">게시판</a></li>
+      <!-- <li><a href="/loginForm">로그인</a></li> -->
+      <% if(logined){ %>
+      <li><a href="/logout"><img src="images/logout_green.png" border="0" style="height:25px;" /></a></li>
+      <% } else{ %>
+      <li><a href="/loginForm"><img src="images/login_green.png" border="0" style="height:25px;" /></a></li>
+      <% } %>
+      <!-- <li><a href="/loginForm"><img src="images/login_green.png" border="0" style="height:25px;" /></a></li> -->
+    </ul>
+  </nav>
