@@ -1,239 +1,273 @@
-<!DOCTYPE html>
 <html>
 <style>
     label.panel-label {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    display: block;
-    width: 100%;
-    color: #bdc3c7;
-    cursor: pointer;
-    background-color: #ecf0f1;
-    -webkit-transition-property: background-color, color;
-    transition-property: background-color, color;
-    -webkit-transition-duration: 200ms;
-    transition-duration: 200ms;
-}
-label.panel-label:hover {
-    color: #003399;
-}
-#panels {
-    background-color: white;
-}
-#panels .container {
-    margin: 0 auto;
-    width: 95%;
-}
-#panels section header label.panel-label {
-    padding: 12px 24px;
-    box-sizing: border-box;
-}
-#panels section main {
-    box-sizing: border-box;
-    max-height: 0;
-    opacity: 0;
-    -webkit-transition: opacity 600ms;
-    transition: opacity 600ms;
-    overflow-y: hidden;
-}
-#panel-1-ctrl:checked ~ #panels #panel-1 main {
-    max-height: initial;
-    opacity: 1;
-    padding: 48px 24px;
-}
-#panel-2-ctrl:checked ~ #panels #panel-2 main {
-    max-height: initial;
-    opacity: 1;
-    padding: 48px 24px;
-}
-#panel-3-ctrl:checked ~ #panels #panel-3 main {
-    max-height: initial;
-    opacity: 1;
-    padding: 48px 24px;
-}
-#panel-4-ctrl:checked ~ #panels #panel-4 main {
-    max-height: initial;
-    opacity: 1;
-    padding: 48px 24px;
-}
-#panel-1-ctrl:checked ~ #tabs-list #li-for-panel-1 {
-    pointer-events: none;
-    cursor: default;
-    -webkit-transform: translate3d(0, 1px, 0);
-    transform: translate3d(0, 1px, 0);
-    box-shadow: none;
-    border-right: none;
-}
-#panel-1-ctrl:checked ~ #tabs-list #li-for-panel-1.last {
-    border-right: 1px solid transparent;
-}
-#panel-1-ctrl:checked ~ #tabs-list #li-for-panel-1 + li {
-    border-left: 1px solid #dfdfdf;
-}
-#panel-1-ctrl:checked ~ #tabs-list #li-for-panel-1 label.panel-label {
-    background-color: white;
-    color: #003399;
-    padding-top: 24px;
-}
-#panel-1-ctrl:checked ~ #tabs-list #li-for-panel-1 label.panel-label::after {
-    height: 6px;
-}
-#panel-2-ctrl:checked ~ #tabs-list #li-for-panel-2 {
-    pointer-events: none;
-    cursor: default;
-    -webkit-transform: translate3d(0, 1px, 0);
-    transform: translate3d(0, 1px, 0);
-    box-shadow: none;
-    border-right: none;
-}
-#panel-2-ctrl:checked ~ #tabs-list #li-for-panel-2.last {
-    border-right: 1px solid transparent;
-}
-#panel-2-ctrl:checked ~ #tabs-list #li-for-panel-2 + li {
-    border-left: 1px solid #dfdfdf;
-}
-#panel-2-ctrl:checked ~ #tabs-list #li-for-panel-2 label.panel-label {
-    background-color: white;
-    color: #003399;
-    padding-top: 24px;
-}
-#panel-2-ctrl:checked ~ #tabs-list #li-for-panel-2 label.panel-label::after {
-    height: 6px;
-}
-#panel-3-ctrl:checked ~ #tabs-list #li-for-panel-3 {
-    pointer-events: none;
-    cursor: default;
-    -webkit-transform: translate3d(0, 1px, 0);
-    transform: translate3d(0, 1px, 0);
-    box-shadow: none;
-    border-right: none;
-}
-#panel-3-ctrl:checked ~ #tabs-list #li-for-panel-3.last {
-    border-right: 1px solid transparent;
-}
-#panel-3-ctrl:checked ~ #tabs-list #li-for-panel-3 + li {
-    border-left: 1px solid #dfdfdf;
-}
-#panel-3-ctrl:checked ~ #tabs-list #li-for-panel-3 label.panel-label {
-    background-color: white;
-    color: #003399;
-    padding-top: 24px;
-}
-#panel-3-ctrl:checked ~ #tabs-list #li-for-panel-3 label.panel-label::after {
-    height: 6px;
-}
-#panel-4-ctrl:checked ~ #tabs-list #li-for-panel-4 {
-    pointer-events: none;
-    cursor: default;
-    -webkit-transform: translate3d(0, 1px, 0);
-    transform: translate3d(0, 1px, 0);
-    box-shadow: none;
-    border-right: none;
-}
-#panel-4-ctrl:checked ~ #tabs-list #li-for-panel-4.last {
-    border-right: 1px solid transparent;
-}
-#panel-4-ctrl:checked ~ #tabs-list #li-for-panel-4 + li {
-    border-left: 1px solid #dfdfdf;
-}
-#panel-4-ctrl:checked ~ #tabs-list #li-for-panel-4 label.panel-label {
-    background-color: white;
-    color: #003399;
-    padding-top: 24px;
-}
-#panel-4-ctrl:checked ~ #tabs-list #li-for-panel-4 label.panel-label::after {
-    height: 6px;
-}            
-            
-ul#tabs-list {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    text-align: center;
-    border-bottom: 1px solid #dfdfdf;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    border-bottom: 1px solid #dfdfdf;
-}
-ul#tabs-list li {
-    display: flex;
-    text-align: center;
-    font-size: 0.875em;
-    width: 38%;
-    box-shadow: 0px -2px 2px rgba(0, 0, 0, 0.05);
-    border-right: 1px solid #dfdfdf;
-    position: relative;
-}
-ul#tabs-list li:hover {
-    -webkit-transition: none;
-    transition: none;
-    border-right: none;
-}
-ul#tabs-list li:hover.last {
-    border-right: 1px solid transparent;
-}
-ul#tabs-list li:hover + li {
-    border-left: 1px solid #dfdfdf;
-}
-ul#tabs-list li label.panel-label {
-    position: relative;
-    padding: 24px 0;
-    font-size: 0.875em;
-}
-ul#tabs-list li label.panel-label::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    left: 0;
-    bottom: 100%;
-    background-color: #f16b6f;
-    height: 0;
-    -webkit-transition-property: height;
-    transition-property: height;
-    -webkit-transition-duration: 200ms;
-    transition-duration: 200ms;
-}
-ul#tabs-list li label.panel-label:hover {
-    padding-top: 24px;
-}
-ul#tabs-list li label.panel-label:hover::after {
-    height: 6px;
-}
-main {
-    width: 100%;
-    margin: 0 auto;
-}
-.panel-radios {
-    display: none;
-}
-body {
-    background: #ffffff;
-    color: #444;
-}
-main p {
-    line-height: 1.8;
-}
-        </style>
-<script>
-//    var sqlConfig = {
-//    user: process.env.DB_TALK_USER,
-//    password: process.env.DB_TALK_PASSWORD,
-//    server: process.env.DB_HOST,
-//    port: process.env.SERVER_PORT,
-//    database: process.env.DB_TALK_NAME
-//  };
-</script>
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        display: block;
+        width: 100%;
+        color: #bdc3c7;
+        cursor: pointer;
+        background-color: #ecf0f1;
+        -webkit-transition-property: background-color, color;
+        transition-property: background-color, color;
+        -webkit-transition-duration: 200ms;
+        transition-duration: 200ms;
+    }
+
+    label.panel-label:hover {
+        color: #003399;
+    }
+
+    #panels {
+        background-color: white;
+    }
+
+    #panels .container {
+        margin: 0 auto;
+        width: 95%;
+    }
+
+    #panels section header label.panel-label {
+        padding: 12px 24px;
+        box-sizing: border-box;
+    }
+
+    #panels section main {
+        box-sizing: border-box;
+        max-height: 0;
+        opacity: 0;
+        -webkit-transition: opacity 600ms;
+        transition: opacity 600ms;
+        overflow-y: hidden;
+    }
+
+    #panel-1-ctrl:checked~#panels #panel-1 main {
+        max-height: initial;
+        opacity: 1;
+        padding: 48px 24px;
+    }
+
+    #panel-2-ctrl:checked~#panels #panel-2 main {
+        max-height: initial;
+        opacity: 1;
+        padding: 48px 24px;
+    }
+
+    #panel-3-ctrl:checked~#panels #panel-3 main {
+        max-height: initial;
+        opacity: 1;
+        padding: 48px 24px;
+    }
+
+    #panel-4-ctrl:checked~#panels #panel-4 main {
+        max-height: initial;
+        opacity: 1;
+        padding: 48px 24px;
+    }
+
+    #panel-1-ctrl:checked~#tabs-list #li-for-panel-1 {
+        pointer-events: none;
+        cursor: default;
+        -webkit-transform: translate3d(0, 1px, 0);
+        transform: translate3d(0, 1px, 0);
+        box-shadow: none;
+        border-right: none;
+    }
+
+    #panel-1-ctrl:checked~#tabs-list #li-for-panel-1.last {
+        border-right: 1px solid transparent;
+    }
+
+    #panel-1-ctrl:checked~#tabs-list #li-for-panel-1+li {
+        border-left: 1px solid #dfdfdf;
+    }
+
+    #panel-1-ctrl:checked~#tabs-list #li-for-panel-1 label.panel-label {
+        background-color: white;
+        color: #003399;
+        padding-top: 24px;
+    }
+
+    #panel-1-ctrl:checked~#tabs-list #li-for-panel-1 label.panel-label::after {
+        height: 6px;
+    }
+
+    #panel-2-ctrl:checked~#tabs-list #li-for-panel-2 {
+        pointer-events: none;
+        cursor: default;
+        -webkit-transform: translate3d(0, 1px, 0);
+        transform: translate3d(0, 1px, 0);
+        box-shadow: none;
+        border-right: none;
+    }
+
+    #panel-2-ctrl:checked~#tabs-list #li-for-panel-2.last {
+        border-right: 1px solid transparent;
+    }
+
+    #panel-2-ctrl:checked~#tabs-list #li-for-panel-2+li {
+        border-left: 1px solid #dfdfdf;
+    }
+
+    #panel-2-ctrl:checked~#tabs-list #li-for-panel-2 label.panel-label {
+        background-color: white;
+        color: #003399;
+        padding-top: 24px;
+    }
+
+    #panel-2-ctrl:checked~#tabs-list #li-for-panel-2 label.panel-label::after {
+        height: 6px;
+    }
+
+    #panel-3-ctrl:checked~#tabs-list #li-for-panel-3 {
+        pointer-events: none;
+        cursor: default;
+        -webkit-transform: translate3d(0, 1px, 0);
+        transform: translate3d(0, 1px, 0);
+        box-shadow: none;
+        border-right: none;
+    }
+
+    #panel-3-ctrl:checked~#tabs-list #li-for-panel-3.last {
+        border-right: 1px solid transparent;
+    }
+
+    #panel-3-ctrl:checked~#tabs-list #li-for-panel-3+li {
+        border-left: 1px solid #dfdfdf;
+    }
+
+    #panel-3-ctrl:checked~#tabs-list #li-for-panel-3 label.panel-label {
+        background-color: white;
+        color: #003399;
+        padding-top: 24px;
+    }
+
+    #panel-3-ctrl:checked~#tabs-list #li-for-panel-3 label.panel-label::after {
+        height: 6px;
+    }
+
+    #panel-4-ctrl:checked~#tabs-list #li-for-panel-4 {
+        pointer-events: none;
+        cursor: default;
+        -webkit-transform: translate3d(0, 1px, 0);
+        transform: translate3d(0, 1px, 0);
+        box-shadow: none;
+        border-right: none;
+    }
+
+    #panel-4-ctrl:checked~#tabs-list #li-for-panel-4.last {
+        border-right: 1px solid transparent;
+    }
+
+    #panel-4-ctrl:checked~#tabs-list #li-for-panel-4+li {
+        border-left: 1px solid #dfdfdf;
+    }
+
+    #panel-4-ctrl:checked~#tabs-list #li-for-panel-4 label.panel-label {
+        background-color: white;
+        color: #003399;
+        padding-top: 24px;
+    }
+
+    #panel-4-ctrl:checked~#tabs-list #li-for-panel-4 label.panel-label::after {
+        height: 6px;
+    }
+
+    ul#tabs-list {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        text-align: center;
+        border-bottom: 1px solid #dfdfdf;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        border-bottom: 1px solid #dfdfdf;
+    }
+
+    ul#tabs-list li {
+        display: flex;
+        text-align: center;
+        font-size: 0.875em;
+        width: 38%;
+        box-shadow: 0px -2px 2px rgba(0, 0, 0, 0.05);
+        border-right: 1px solid #dfdfdf;
+        position: relative;
+    }
+
+    ul#tabs-list li:hover {
+        -webkit-transition: none;
+        transition: none;
+        border-right: none;
+    }
+
+    ul#tabs-list li:hover.last {
+        border-right: 1px solid transparent;
+    }
+
+    ul#tabs-list li:hover+li {
+        border-left: 1px solid #dfdfdf;
+    }
+
+    ul#tabs-list li label.panel-label {
+        position: relative;
+        padding: 24px 0;
+        font-size: 0.875em;
+    }
+
+    ul#tabs-list li label.panel-label::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 100%;
+        background-color: #f16b6f;
+        height: 0;
+        -webkit-transition-property: height;
+        transition-property: height;
+        -webkit-transition-duration: 200ms;
+        transition-duration: 200ms;
+    }
+
+    ul#tabs-list li label.panel-label:hover {
+        padding-top: 24px;
+    }
+
+    ul#tabs-list li label.panel-label:hover::after {
+        height: 6px;
+    }
+
+    main {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .panel-radios {
+        display: none;
+    }
+
+    body {
+        background: #ffffff;
+        color: #444;
+    }
+
+    main p {
+        line-height: 1.8;
+    }
+
+</style>
+
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="leaflet/leaflet.css" />
     <script src="leaflet/leaflet.js">
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js">
     </script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 <header>
     <div style="height: 100%;">
@@ -251,7 +285,7 @@ main p {
                         <img src="images/board.png">
                     </td>
                     <td>
-                        <img style="float: right;" src="images/menu.png" onclick="openNav()">
+                        <img style="float: right;" src="images/menu.png">
                     </td>
                 </tr>
             </tbody>
@@ -260,13 +294,7 @@ main p {
 </header>
 
 <body>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Profile</a>
-        <a href="#">Schedule</a>
-        <a href="#">Logout</a>
-        <a href="#"></a>
-    </div>
+   <div id="get_circlelink" style="width:0px;height:0px"></div>
     <input id="panel-1-ctrl" class="panel-radios" type="radio" name="tab-radios" checked>
     <input id="panel-2-ctrl" class="panel-radios" type="radio" name="tab-radios">
     <input id="panel-3-ctrl" class="panel-radios" type="radio" name="tab-radios">
@@ -276,7 +304,7 @@ main p {
     <input id="panel-7-ctrl" class="panel-radios" type="radio" name="tab-radios">
     <input id="panel-8-ctrl" class="panel-radios" type="radio" name="tab-radios">
     <!-- 이건 무엇? -->
-    
+
     <!-- TABS LIST -->
     <ul id="tabs-list">
         <!-- MENU TOGGLE -->
@@ -300,134 +328,149 @@ main p {
             <section id="panel-1">
                 <main>
                     <blockquote>
-                    <p> 런던 은 잉글랜드와 영국의 수도이자 최대 도시이다. 인구는 2014년 기준 8,538,689명으로 영국은 물론 유럽 전체 대도시권 중 가장 큰 권역이다. 런던은 템스 강을 기반으로 2,000년 동안 발전해 왔으며 역사는 로마인들이 론디니움이라는 요새를 지은 때부터 시작되었다. - 위키백과 </p>
-                    </blockquote>    
+                        <p> 런던 은 잉글랜드와 영국의 수도이자 최대 도시이다. 인구는 2014년 기준 8,538,689명으로 영국은 물론 유럽 전체 대도시권 중 가장 큰 권역이다. 런던은 템스 강을 기반으로 2,000년 동안 발전해 왔으며 역사는 로마인들이 론디니움이라는 요새를 지은 때부터 시작되었다. - 위키백과 </p>
+                    </blockquote>
                     <h3> The Amount of TOTAL TWEETS : 813,499 </h3>
-                    
-                    
+
+
                     <!-- <button id="map_hidden">> 핫 플레이스 알아보기 </button> -->
-                    
-                    <span id="map_hidden"; style="CURSOR: hand; color:#02B3B1">➤ 핫 플레이스 알아보기</span>
+
+                    <span id="map_hidden" ; style="CURSOR: hand; color:#02B3B1">➤ 핫 플레이스 알아보기</span>
 
                     <div id="mapLondon">
-                        
+
                     </div>
                     <script>
-//                        var strSQL = "select * from hottrace.dbo.htCircle"
-//                        MsSql.connect(sqlConfig, function(err) {
-//                            var request = new MsSql.Request();
-//
-//                            request.query(strSQL, (err, row) => {
-//                              var memberInfo = row.recordset;
-//                              if(row.rowsAffected != 0){
-//                                print(memberInfo)
-//
-//                              }
-//                              MsSql.close();
-//                            });
-//                          });
-                        function openNav() {
-                         document.getElementById("mySidenav").style.width = "250px";
-                        }
-
-                        function closeNav() {
-                          document.getElementById("mySidenav").style.width = "0";
-                        }
-                        function checkEmpty(){
-                            alert($("#start_input").val());
-                            if($("#start_input").val() == ""){
-                                alert("출발지를 입력하세요");
-                                return false;
-                            }
-                            else if($("#destination_input").val() == ""){
-                                alert("목적지를 입력하세요");
-                                return false;
-                            }
-                            else{
-                                return true;
-                            }
-                        }
-                        
-                        $("#submit").click(function(){
-                            if(("$start").text() == "출발지: "){
-                                
-                            }
+                        mapboxgl.accessToken = 'pk.eyJ1Ijoic3dwYXJrNzA2IiwiYSI6ImNqc3E0czNqZjAxcmU0NGxia3hnMmhzZGsifQ.PeerIezauoZBKoR7jSKa1A';
+                        var map = new mapboxgl.Map({
+                            container: 'mapLondon', // container id
+                            style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+                            center: [-0.12, 51.505], // starting position [lng, lat]
+                            zoom: 10.5 // starting zoom
                         });
-                        function setOrigin(e) {
-                            var change_text = "출발지: " + e;
-                            $("#start").text(change_text);
-                            $("#start_input").val("Pow");
-                        };
 
-                        function setDestination(e) {
-                            var change_text = "도착지: " + e;
-                            $("#end").text(change_text);
-                            $("#destination_input").val("asd");
-                            
-                        }
-                        var myLDN = L.map('mapLondon').setView([51.505, -0.12], 12);
-                        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                            maxZoom: 18,
-                            id: 'mapbox.streets',
-                            accessToken: 'pk.eyJ1Ijoic3dwYXJrNzA2IiwiYSI6ImNqc3E0czNqZjAxcmU0NGxia3hnMmhzZGsifQ.PeerIezauoZBKoR7jSKa1A'
-                        }).addTo(myLDN);
-                        $(document).ready(function() {
-                            $("#map_hidden").click(function() {
-                                if ($("#mapLondon").height() == 0) {
-                                    $("#mapLondon").height(800);
-                                    myLDN.invalidateSize();
-                                    $("#findRoute").show();
-                                } else {
-                                    $("#mapLondon").height(0);
-                                    myLDN.invalidateSize();
-                                    $("#findRoute").hide();
 
+                        var clickeddonut;
+                        var clickedpie;
+                        var filter_distance = 1000;
+                        $('#get_circlelink').click(function(){
+                            $.ajax({
+                            url:'/getCircleLink',
+                            dataType: 'json',
+                            type:'POST',
+                            data: {donut: clickeddonut, pie: clickedpie, distance: filter_distance},
+                            success: function(result){
+                                if(result['result']==true){
+                                    //map.setFilter('places-highlighted', ['==', ['number', ['get', 'london_pie']], result['clinkset'][2]['t_pie']]);
+                                    var filters = ["any"];
+                                    alert(result['count']);
+                                    for(var i=0; i<result['count']; i++){
+                                        filters[i+1] = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][i]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][i]['t_pie']]];
+                                    }
+//                                    var filter1 = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][1]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][1]['t_pie']]];
+//                                    var filter2 = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][2]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][2]['t_pie']]];
+//                                    var filter3 = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][3]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][3]['t_pie']]];
+//                                    var filter4 = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][4]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][4]['t_pie']]];
+//                                    var filter5 = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][0]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][0]['t_pie']]];
+
+                                    map.setFilter('places-highlighted', filters);
                                 }
+                            }
                             });
                         });
-                        var circle1 = L.circle([51.503, -0.1195], {
-                            color: 'red',
-                            fillColor: '#f03',
-                            fillOpacity: 0.5,
-                            radius: 500
-                        }).addTo(myLDN);
+                        
+                        map.on('load', function() {
+                            // Add the source to query. In this example we're using
+                            // county polygons uploaded as vector tiles
+                            map.addSource('dots', {
+                                "type": "vector",
+                                "url": "mapbox://swpark706.1yhj3yv8"
+                            });
 
-                        circle1.bindPopup("<img src=" + "images/london/London_Eye.png" + " style=" + "width:100px;" + "><br><br> Here is the 'London Eye'<br><br><button style=width: 50% id=" + "'London Eye'" + " onclick=" + "setOrigin(this.id);" + ">출발</button>" + "&nbsp;&nbsp;&nbsp;" + "<button style=width: 50%; id=" + "'London Eye'" + " onclick=setDestination(this.id);>도착</button>");
 
-                        var circle2 = L.circle([51.4995, -0.1248], {
-                            color: 'red',
-                            fillColor: '#f03',
-                            fillOpacity: 0.5,
-                            radius: 500
-                        }).addTo(myLDN);
-                        circle2.bindPopup("<img src=images/london/Palace_of_Westminster.png style=width:100px;><br><br> Here is the 'Palace of Westminster'<br><br><button style=width: 50% id=" + "'Palace of Westminster'" +  " onclick=" + "setOrigin(this.id);" + ">출발</button>" + "&nbsp;&nbsp;&nbsp;" + "<button style=width: 50%; id=" + "'Palace of Westminster'" + " onclick=setDestination(this.id);>도착</button>");
+                            map.addLayer({
+                                'id': 'places',
+                                'type': 'circle',
+                                'source': 'dots',
+                                'source-layer': 'londondots-bekmaa',
+                                paint: {
+                                    'circle-color': [
+                                        'interpolate',
+                                        ['linear'],
+                                        ['get', 'london_weight'],
+                                        100, 'RGB(217, 236, 252)',
+                                        500, 'RGB(159, 208, 248)',
+                                        1000, 'RGB(63, 161, 240)',
+                                        5000, 'rgb(14, 109, 186)',
+                                        10000, 'rgb(9, 73, 125)',
+                                        50000, 'rgb(5, 38, 65)',
+                                        100000, 'rgb(3, 25, 43)',
+                                    ],
+                                    'circle-radius': ['number', ['get', 'london_radius']],
+                                    'circle-opacity': 0.7
+                                }
 
-                        var circle3 = L.circle([51.5074, -0.1666], {
-                            color: 'red',
-                            fillColor: '#f03',
-                            fillOpacity: 0.5,
-                            radius: 500
-                        }).addTo(myLDN);
-                        circle3.bindPopup("<br> Here is the 'Hyde Park'<br><br><button style=width: 50% id=" + "'Hyde Park'" + " onclick=" + "setOrigin(this.id);" + ">출발</button>" + "&nbsp;&nbsp;&nbsp;" + "<button style=width: 50%; id=" + "'Hyde Park'" + " onclick=setDestination(this.id);>도착</button>");
+                            });
 
-                        var circle4 = L.circle([51.5014, -0.142], {
-                            color: 'red',
-                            fillColor: '#f03',
-                            fillOpacity: 0.5,
-                            radius: 500
-                        }).addTo(myLDN);
-                        circle4.bindPopup("<br> Here is the 'Buckingham Palace'<br><br><button style=width: 50% id=" + "'Buckingham Palace'" + " onclick=" + "setOrigin(this.id);" + ">출발</button>" + "&nbsp;&nbsp;&nbsp;" + "<button style=width: 50%; id=" + "'Buckingham Palace'" + " onclick=setDestination(this.id);>도착</button>");
+                            map.addLayer({
+                                "id": "places-highlighted",
+                                "type": "circle",
+                                "source": 'dots',
+                                'source-layer': 'londondots-bekmaa',
 
-                        var circle5 = L.circle([51.506, -0.0767], {
-                            color: 'red',
-                            fillColor: '#f03',
-                            fillOpacity: 0.5,
-                            radius: 500
-                        }).addTo(myLDN);
-                        circle5.bindPopup("<br> Here is the 'Tower Bridge'<br><br><button style=width: 50% id=" + "'Tower Bridge'" + " onclick=" + "setOrigin(this.id);" + ">출발</button>" + "&nbsp;&nbsp;&nbsp;" + "<button style=width: 50%; id=" + "'Tower Bridge'" + " onclick=setDestination(this.id);>도착</button>");
+                                'paint': {
+                                    'circle-radius': ['number', ['get', 'london_radius']],
+                                    'circle-color': '#AA0000',
+                                    'circle-opacity': 1.0
+                                },
+                                "filter": ["<", ["number", ["get", "london_weight"]], 0]
+                            }, 'settlement-label');
 
-                        var popup = L.popup();
+
+                            map.on('click', 'places', function(e) {
+                                map.flyTo({
+                                    center: e.features[0].geometry.coordinates
+                                });
+
+                                map.getCanvas().style.cursor = 'pointer';
+
+                                if (!e.features.length) {
+                                    return;
+                                }
+
+                                var feature = e.features[0];
+
+                                var relatedFeatures = map.querySourceFeatures('dots', {
+                                    sourceLayer: 'londondots-bekmaa',
+                                    filter: ['>=', ['number', ['get', 'london_weight']], feature.properties.london_weight]
+                                });
+
+                                if (feature.properties.london_radius <= 2) {
+                                    return;
+                                }
+
+
+                                //map.setFilter('places-highlighted', ['==', ['number', ['get', 'london_donut']], feature.properties.london_donut]);
+                                clickeddonut = feature.properties.london_donut;
+                                clickedpie = feature.properties.london_pie;
+                                $("#get_circlelink").trigger("click");
+
+                                var popup = new mapboxgl.Popup({
+                                        offset: [0, -15]
+                                    })
+                                    .setLngLat(feature.geometry.coordinates)
+
+
+                                    .setHTML('<div id=\'popup\' class=\'popup\' style=\'z-index: 10;\'> <h5> Detail: </h5>' +
+                                        '<ul class=\'list-group\'>' +
+                                        '<li class=\'list-group-item\'> Donut: ' + feature.properties.lng + ' </li>' +
+                                        '<li class=\'list-group-item\'> Pie: ' + feature.properties.lat + ' </li>' +
+                                        '<li class=\'list-group-item\'> id Count: ' + feature.properties.london_id + ' </li></ul></div><div><button id=abc onclick=fun(' + feature.properties.lng + ',' + feature.properties.lat + ');>Add to my Trip</button></div>')
+
+                                    .addTo(map);
+                            });
+
+                        });
 
                     </script>
                     <br>
@@ -438,80 +481,54 @@ main p {
                         <input type="text" id="start_input" name="start" style="display: none" value="">
                         <input type="text" id="destination_input" name="destination" style="display: none" value="">
                         <button type="submit" id="findRoute" style="display:none">길찾기</button>
-                        </form>
-                    
+                    </form>
+
                     <p> 주요 관광 지역 </p>
-                    <a href="#mapLondon"><img src="images/london/round_BKH.png" style="width: 100px" title="버킹엄 궁전"></a>
-                    <a href="#mapLondon"><img src="images/london/round_LDE.png" style="width: 100px" title="런던 아이"></a>
-                    <a href="#mapLondon"><img src="images/london/round_TWB.png" style="width: 100px" title="타워 브릿지"></a>
-                    <a href="#mapLondon"><img src="images/london/round_TFS.png" style="width: 100px" title="트라팔가 광장"></a>
-                    <a href="#mapLondon"><img src="images/london/round_HDP.png" style="width: 100px" title="하이드 파크"></a>
-                    <a href="#mapLondon"><img src="images/london/round_SPC.png" style="width: 100px" title="세인트 폴 대성당"></a>
-                    <a href="#mapLondon"><img src="images/london/round_WMA.png" style="width: 100px" title="웨스트민스터 사원"></a>
-                    <p> <button style="width: 100%"> 알아보기 </button></p>
+                    <table class="table table-striped">
+                        <thead></thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#mapLondon"><img src="/images/london/round_Buckingham_Palace.png" style="width: 100px" title="버킹엄 궁전"></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#mapLondon"><img src="images/london/round_London_Eye.png" style="width: 100px" title="런던 아이"></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#mapLondon"><img src="images/london/round_Tower_Bridge.png" style="width: 100px" title="타워 브릿지"></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#mapLondon"><img src="images/london/round_Trafalgar_Square.png" style="width: 100px" title="트라팔가 광장"></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#mapLondon"><img src="images/london/round_Hyde_Park.png" style="width: 100px" title="하이드 파크"></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#mapLondon"><img src="images/london/round_Saint_Paul.png" style="width: 100px" title="세인트 폴 대성당"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#mapLondon"><img src="images/london/round_Westminster_Abbey.png" style="width: 100px" title="웨스트민스터 사원"></a>
+                                </td>
+                                <td style="margin: 30px;">123456</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    
                 </main>
             </section>
             <section id="panel-2">
                 <main>
-                    <p> 스코틀랜드 에든버러 <br>
-                        <blockquote>스코틀랜드의 수도이며, 글래스고 다음으로 큰 도시다. 1437년 스코틀랜드의 수도가 되었으며, 이후 스코틀랜드의 문화, 정치, 교육, 관광의 중심지 역할을 하고 있다. 18세기 스코틀랜드를 유럽의 상업, 지식, 산업, 문학, 교육의 중심지로 만든 스코틀랜드 계몽주의가 시작된 곳으로 역사적 의미를 갖고 있으며, 영어권에서 여섯 번째로 오래되고, 스코틀랜드에서 네 번째로 세워진 에든버러 대학교가 시내 중심에 위치해 있다.
-
-                            주요 산업은 금융업과 관광업이며, 금융업은 영국 내에서 두 번째, 유럽에서 여섯 번째로 큰 규모이다.[1][2] 영국 5대 은행 중 로이드 그룹(2008년 로이드에 편입된 뱅크오브스코틀랜드 포함)과 로열뱅크오브스코틀랜드(RBS) 그룹의 본사가 위치해 있다.
-
-                            에든버러는 영국에서 런던에 다음으로 많은 관광객을 유치하며, 해마다 1300만 명이 찾는 관광도시이다. 특히 해마다 열리는 에든버러 축제가 유명한데, 각각의 축제들이 집중되는 8월 초부터 4주간은 시에 머무는 사람이 평소 거주자의 최소 2배 이상 늘어난다. 이러한 축제 중 에든버러 프린지 페스티벌(세계에서 가장 큰 행위예술 페스티벌), 에든버러 국제 페스티벌, 에든버러 밀리터리 타투, 에든버러 국제 영화제가 가장 이름나 있다.</blockquote>
-                    </p>
-                    <p>> 핫 플레이스 알아보기 </p>
-                    <div id="mapEdinburgh"></div>
-                    <script>
-                        var myEDN = L.map('mapEdinburgh').setView([55.952, -3.196], 13);
-                        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                            maxZoom: 18,
-                            id: 'mapbox.streets',
-                            accessToken: 'pk.eyJ1Ijoic3dwYXJrNzA2IiwiYSI6ImNqc3E0czNqZjAxcmU0NGxia3hnMmhzZGsifQ.PeerIezauoZBKoR7jSKa1A'
-                        }).addTo(myEDN);
-
-                    </script>
-                    <p> 주요 관광 지역 </p>
-                    <p> <button style="width: 100%"> 알아보기 </button></p>
                 </main>
             </section>
             <section id="panel-3">
                 <main>
-                    <p> 이탈리아 로마 </p>
-                    <p>> 핫 플레이스 알아보기 </p>
-                    <div id="mapRome"></div>
-                    <script>
-                        var myROM = L.map('mapRome').setView([41.895, 12.484], 13);
-                        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                            maxZoom: 18,
-                            id: 'mapbox.streets',
-                            accessToken: 'pk.eyJ1Ijoic3dwYXJrNzA2IiwiYSI6ImNqc3E0czNqZjAxcmU0NGxia3hnMmhzZGsifQ.PeerIezauoZBKoR7jSKa1A'
-                        }).addTo(myROM);
-
-                    </script>
-                    <p> 주요 관광 지역 </p>
-                    <p> <button style="width: 100%"> 알아보기 </button></p>
                 </main>
             </section>
             <section id="panel-4">
                 <main>
-                    <p> 독일 베를린 </p>
-                    <p>> 핫 플레이스 알아보기 </p>
-                    <div id="mapBerlin"></div>
-                    <script>
-                        var myBLN = L.map('mapBerlin').setView([52.5182, 13.408], 13);
-                        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                            maxZoom: 18,
-                            id: 'mapbox.streets',
-                            accessToken: 'pk.eyJ1Ijoic3dwYXJrNzA2IiwiYSI6ImNqc3E0czNqZjAxcmU0NGxia3hnMmhzZGsifQ.PeerIezauoZBKoR7jSKa1A'
-                        }).addTo(myBLN);
-
-                    </script>
-                    <p> 주요 관광 지역 </p>
-                    <p> <button style="width: 100%"> 알아보기 </button></p>
                 </main>
             </section>
         </div>

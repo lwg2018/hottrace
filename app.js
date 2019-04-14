@@ -19,6 +19,9 @@ var loginFormRouter = require('./routes/logIn/loginForm');
 var loginRouter = require('./routes/logIn/login');
 var logoutRouter = require('./routes/logIn/logout');
 
+var joinRouter = require('./routes/member/join');
+var profileRouter = require('./routes/member/profile');
+
 //채팅 관련 Router
 var channelListRouter = require('./routes/channel/channelList');
 var channelRouter = require('./routes/channel/channel');
@@ -32,6 +35,11 @@ var addMembersRouter = require('./routes/channel/addMembers');
 //지도 관련 Router
 var navigatorRouter = require('./routes/map/navigator');
 var markerRouter = require('./routes/map/marker');
+var mainmapRouter =require('./routes/map/mainmap');
+var circleLinkRouter = require('./routes/map/get_circlelink');
+
+//머신러닝 Router
+var machineLearningRouter = require('./routes/machine_learning/recommand_place');
 
 var app = express();
 
@@ -77,6 +85,8 @@ app.use('/post_update',updateRouter);
 app.use('/', loginFormRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+app.use('/join', joinRouter);
+app.use('/profile', profileRouter);
 
 app.use('/channels', channelListRouter);
 app.use('/chatting', channelRouter);
@@ -87,9 +97,12 @@ app.use('/sendMsg', messageRouter);
 app.use('/exitChatRoom', exitChatRoomRouter);
 app.use('/addMembers', addMembersRouter);
 
-
 app.use('/map/navigator', navigatorRouter);
 app.use('/map/marker', markerRouter);
+app.use('/main', mainmapRouter);
+app.use('/getCircleLink', circleLinkRouter);
+
+app.use('/machineLearning/recommand_place', machineLearningRouter);
 // app.use('/chatTest', chatTest);
 // app.use('/chatRoomTest', chatRoomJoinTest);
 

@@ -4,22 +4,26 @@ var MsSql = require('mssql');
 
 /* Get Login page */
 router.get('/', function(req, res, next) {
-    if(req.session.logined == true)
-        res.render('main');
+    if(req.session.logined == true){
+        req.session.city = 'London'
+        req.session.circleClicked = false
+        res.redirect('/main')
+        //res.render('main', {result: true});
+    }
     else{
         res.render('logIn/loginForm', {result: false});
     }
 });
 
 router.post('/', function(req, res, next) {
-  var sqlConfig = {
+    var sqlConfig = {
     user: process.env.DB_TALK_USER,
     password: process.env.DB_TALK_PASSWORD,
     server: process.env.DB_HOST,
     port: process.env.SERVER_PORT,
     database: process.env.DB_TALK_NAME
-  };
-  
+    };
+    
   member_email = req.body.email;
   member_pwd = req.body.password;
     
@@ -33,9 +37,12 @@ router.post('/', function(req, res, next) {
         var sess = req.session;
         sess.member_no = memberInfo.email;
         sess.logined = true;
+        sess.circleClicked = false
 
         // console.log('member_no_sess : ' + sess.member_no);
-        res.render('main');
+        sess.city = 'London'
+        res.redirect('/main')
+        //res.render('main', {result: true});
         // res.render('index', {member_no : sess.member_no});
       }else{
         res.render('logIn/loginForm', {result: false});
