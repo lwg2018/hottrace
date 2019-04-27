@@ -268,6 +268,51 @@
     </script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="css/lightslider.css" />
+    <link rel="stylesheet" href="css/cityslider.css" />
+    <style>
+        ul {
+            list-style: none outside none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .demo .item {
+            margin-bottom: 60px;
+        }
+
+        .content-slider li {
+            text-align: center;
+            color: #FFF;
+        }
+
+        .content-slider h3 {
+            margin: 0;
+            padding: 70px 0;
+        }
+
+        .demo {
+            width: 800px;
+        }
+
+    </style>
+    <script src="js/lightslider.js"></script>
+    <script src="js/cityslider.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#content-slider").lightSlider({
+                loop: true,
+                keyPress: true
+            });
+        });
+        $(document).ready(function() {
+            $("#tabs-list").citySlider({
+                loop: true,
+                keyPress: true
+            });
+        });
+
+    </script>
 </head>
 <header>
     <div style="height: 100%;">
@@ -294,7 +339,74 @@
 </header>
 
 <body>
+  <style>
+        .legend {
+            background-color: #fff;
+            border-radius: 3px;
+            bottom: -300px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            padding: 10px;
+            position: absolute;
+            right: 10px;
+            z-index: 1;
+        }
+
+        .legend h4 {
+            margin: 0 0 10px;
+        }
+
+        .legend div span {
+            border-radius: 50%;
+            display: inline-block;
+            height: 10px;
+            margin-right: 5px;
+            width: 10px;
+        }
+
+
+        h1 {
+            font-size: 20px;
+            line-height: 30px;
+        }
+
+        h2 {
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2dc4b2;
+        }
+
+        #console {
+            position: absolute;
+            width: 240px;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: white;
+            bottom: -50px;
+        }
+
+        .marker {
+            display: block;
+            background-size: cover;
+            border: 3px;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+        }
+
+    </style>
    <div id="get_circlelink" style="width:0px;height:0px"></div>
+   <!--args: [req.body.city, req.body.people, req.body.age, req.body.money, req.body.time]-->
+   <input type="text" id="people_num">
+    <input type="text" id="aver_age">
+   <input type="text" id="money">
+   <input type="text" id="time">
+   <button id="get_recommand_place">추천받기</button>
     <input id="panel-1-ctrl" class="panel-radios" type="radio" name="tab-radios" checked>
     <input id="panel-2-ctrl" class="panel-radios" type="radio" name="tab-radios">
     <input id="panel-3-ctrl" class="panel-radios" type="radio" name="tab-radios">
@@ -337,11 +449,131 @@
 
                     <span id="map_hidden" ; style="CURSOR: hand; color:#02B3B1">➤ 핫 플레이스 알아보기</span>
 
-                    <div id="mapLondon">
-
+                    <div id="mapLondon"> </div>
+                    <div id='console' style="opacity: 0.8;">
+                        <div class='session'>
+                            <h2>Day and Night</h2>
+                            <div class='row' id='filterT'>
+                                <input id='all' type='checkbox' name='toggle' value='all' checked='checked'>
+                                <label for='all'>All</label>
+                                <input id='LondonDay' type='checkbox' name='toggle' value='Londonday' checked='checked'>
+                                <label for='LondonDay'>Day</label>
+                                <input id='LondonNight' type='checkbox' name='toggle' value='LondonNight' checked='checked'>
+                                <label for='1000'>Night</label>
+                            </div>
+                        </div>
+                        <div class='session_1'>
+                            <h2>Day and Night</h2>
+                            <div class='row' id='filterN'>
+                                <input id='all' type='checkbox' name='toggle' value='all' checked='checked'>
+                                <label for='all'>All</label>
+                                <input id='LondonNative' type='checkbox' name='toggle' value='LondonNative' checked='checked'>
+                                <label for='LondonNative'>Native</label>
+                                <input id='LondonForeigner' type='checkbox' name='toggle' value='LondonForeigner' checked='checked'>
+                                <label for='LondonForeigner'>Foreigner</label>
+                            </div>
+                        </div>
                     </div>
+                    <div id='state-legend' class='legend'>
+                        <h4>The Amount of Tweets</h4>
+                        <div><span style='background-color: #FF0000'></span>100,000</div>
+                        <div><span style='background-color: #FC8323'></span>50,000</div>
+                        <div><span style='background-color: #CA8323'></span>10,000</div>
+                        <div><span style='background-color: #DA9C20'></span>5,000</div>
+                        <div><span style='background-color: #B0B14C'></span>1,000</div>
+                        <div><span style='background-color: #EED322'></span>500</div>
+                        <div><span style='background-color: #F2F12D'></span>100</div>
+                    </div>
+                    <div id='map-overlay' class='map-overlay'></div>
                     <script>
+                        function relayout(src) {
+                            alert(src);
+                            for (var i = 0; i < geojson.feature.length; i++) {
+                                if (src === geojson.feature[i].properties.id) {
+                                    map.flyTo({
+                                        center: geojson.feature[i].geometry.coordinates
+                                    });
+                                }
+                            }
+                        }
+                        
                         mapboxgl.accessToken = 'pk.eyJ1Ijoic3dwYXJrNzA2IiwiYSI6ImNqc3E0czNqZjAxcmU0NGxia3hnMmhzZGsifQ.PeerIezauoZBKoR7jSKa1A';
+                        var geojson = {
+                            "type": "FeatureCollection",
+                            "feature": [{
+                                    "type": "Feature",
+                                    "properties": {
+                                        "id": "Marker_Trafalgar_Square",
+                                        "message": "Here is the Trafalgar Square",
+                                        "src": 'images/london/round_Trafalgar_Square.png',
+                                        "iconSize": [60, 60]
+                                    },
+                                    "geometry": {
+                                        "type": "Point",
+                                        "coordinates": [
+                                            -0.128, 51.508
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "Feature",
+                                    "properties": {
+                                        "id": "Marker_Tower_Bridge",
+                                        "message": "Here is the Tower Bridge",
+                                        "src": 'images/london/round_Tower_Bridge.png',
+                                        "iconSize": [60, 60]
+                                    },
+                                    "geometry": {
+                                        "type": "Point",
+                                        "coordinates": [
+                                            -0.0767, 51.506
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "Feature",
+                                    "properties": {
+                                        "id": "Marker_Hyde_Park",
+                                        "message": "Here is the Hyde Park",
+                                        "src": 'images/london/round_Hyde_Park.png',
+                                        "iconSize": [60, 60]
+                                    },
+                                    "geometry": {
+                                        "type": "Point",
+                                        "coordinates": [
+                                            -0.1666, 51.5074
+                                        ]
+                                    }
+                                }
+                            ]
+                        };
+                        
+                        function goPage(pie, donut){
+                            var f = document.send_pie_donut;
+                            
+                            f.board_pie.value = pie;
+                            f.board_donut.value = donut;
+                            
+                            f.action = "./write.html"
+                            
+                            f.method = "post"
+                            f.submit();
+                        };
+                        
+                        var geo = {
+                            "type": "FeatureCollection",
+                            "features": []
+                        };
+
+                        // Used to draw a line between points
+                        var linestring = {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": []
+                            }
+                        };
+                        
                         var map = new mapboxgl.Map({
                             container: 'mapLondon', // container id
                             style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
@@ -349,11 +581,69 @@
                             zoom: 10.5 // starting zoom
                         });
 
+                        function drawLine(x, y, lon_arr, lat_arr, len) {
+                            var ori_p = {
+                                "type": "Feature",
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        x, y
+                                    ]
+                                }
+                            }
+                            var tar_p = [];
+                            for(var i=0; i<len; i++){
+                                tar_p[i] = {
+                                    "type": "Feature",
+                                    "geometry": {
+                                        "type": "Point",
+                                        "coordinates": [
+                                            lon_arr[i], lat_arr[i]
+                                        ]
+                                    }
+                                }
+                            }
+                            alert(JSON.stringify(tar_p));
+                            
+                            var features = map.queryRenderedFeatures({
+                                layers: ['measure-points']
+                            });
 
+                            while (true) {
+                                if (geo.features.length <= 0) {
+                                    break;
+                                } else {
+                                    geo.features.pop();
+                                }
+                            }
+
+                            for(var i=0; i<len; i++){
+                                geo.features.push(ori_p);
+                                geo.features.push(tar_p[i]);
+                            }
+
+                            if (geo.features.length > 1) {
+                                //alert(geo.features.length);
+                                for(var i=0; i<len; i++){
+                                    linestring.geometry.coordinates = geo.features.map(function(ori_p) {
+                                        return ori_p.geometry.coordinates;
+                                    });
+
+                                    linestring.geometry.coordinates = geo.features.map(function(tar_p) {
+                                        return tar_p.geometry.coordinates;
+                                    });
+                                }
+                            
+                                geo.features.push(linestring);
+                            }
+
+                            map.getSource('geo').setData(geo);
+                        }
+                        
                         var clickeddonut;
                         var clickedpie;
                         var filter_distance = 1000;
-                        $('#get_circlelink').click(function(){
+                        $('#get_circlelink').click(function(event, e){
                             $.ajax({
                             url:'/getCircleLink',
                             dataType: 'json',
@@ -364,16 +654,38 @@
                                     //map.setFilter('places-highlighted', ['==', ['number', ['get', 'london_pie']], result['clinkset'][2]['t_pie']]);
                                     var filters = ["any"];
                                     alert(result['count']);
+                                                                        
+                                    var lon_arr = [];
+                                    var lat_arr = [];
                                     for(var i=0; i<result['count']; i++){
                                         filters[i+1] = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][i]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][i]['t_pie']]];
+                                        lon_arr[i] = result['clinkset'][i]['lon'];
+                                        lat_arr[i] = result['clinkset'][i]['lat'];
                                     }
-//                                    var filter1 = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][1]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][1]['t_pie']]];
-//                                    var filter2 = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][2]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][2]['t_pie']]];
-//                                    var filter3 = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][3]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][3]['t_pie']]];
-//                                    var filter4 = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][4]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][4]['t_pie']]];
-//                                    var filter5 = ["all", ['==', ['number', ['get', 'london_donut']], result['clinkset'][0]['t_donut']], ['==', ['number', ['get', 'london_pie']], result['clinkset'][0]['t_pie']]];
-
+                                    //alert(result['clinkset'][1]['lon']);
+                                    
+                                    drawLine(result['clinkset'][5]['lon'], result['clinkset'][5]['lat'], lon_arr, lat_arr, result['count']);
                                     map.setFilter('places-highlighted', filters);
+                                }
+                            }
+                            });
+                        });
+                        
+                        $('#get_recommand_place').click(function(){
+                            //alert(document.getElementById("aver_age").value, document.getElementById("money").value, document.getElementById("time").value);
+                            $.ajax({
+                            url:'/machineLearning/recommand_place',
+                            dataType: 'json',
+                            type:'POST',
+                            data: {people: document.getElementById("people_num").value, age: document.getElementById("aver_age").value, money: document.getElementById("money").value, time: document.getElementById("time").value},
+                            success: function(result){
+                                if(result['result']==true){
+                                    alert(typeof(result['values'][1]));
+                                    alert(result['values'][2]);
+
+                                    var recommand_donut = parseInt(result['values'][1]); // string형이면 안됨.
+                                    var recommand_pie = parseInt(result['values'][2]);
+                                    map.setFilter('places-highlighted', ["all", ['==', ['number', ['get', 'london_donut']], recommand_donut], ['==', ['number', ['get', 'london_pie']], recommand_pie]]);
                                 }
                             }
                             });
@@ -382,6 +694,40 @@
                         map.on('load', function() {
                             // Add the source to query. In this example we're using
                             // county polygons uploaded as vector tiles
+                            map.addSource('geo', {
+                                "type": "geojson",
+                                "data": geo
+                            });
+
+                            map.addLayer({
+                                id: 'measure-points',
+                                type: 'circle',
+                                source: 'geo',
+                                paint: {
+                                    'circle-radius': 5,
+                                    'circle-color': '#000'
+                                },
+                                layout: {
+                                    'visibility': 'visible'
+                                },
+                                filter: ['in', '$type', 'Point']
+                            });
+                            map.addLayer({
+                                id: 'lines',
+                                type: 'line',
+                                source: 'geo',
+                                layout: {
+                                    'visibility': 'visible',
+                                    'line-cap': 'round',
+                                    'line-join': 'round'
+                                },
+                                paint: {
+                                    'line-color': '#963',
+                                    'line-width': 5
+                                },
+                                filter: ['in', '$type', 'LineString']
+                            });
+                            
                             map.addSource('dots', {
                                 "type": "vector",
                                 "url": "mapbox://swpark706.1yhj3yv8"
@@ -434,9 +780,9 @@
 
                                 map.getCanvas().style.cursor = 'pointer';
 
-                                if (!e.features.length) {
-                                    return;
-                                }
+//                                if (!e.features.length) {
+//                                    return;
+//                                }
 
                                 var feature = e.features[0];
 
@@ -453,7 +799,7 @@
                                 //map.setFilter('places-highlighted', ['==', ['number', ['get', 'london_donut']], feature.properties.london_donut]);
                                 clickeddonut = feature.properties.london_donut;
                                 clickedpie = feature.properties.london_pie;
-                                $("#get_circlelink").trigger("click");
+                                $("#get_circlelink").trigger("click", [e]);
 
                                 var popup = new mapboxgl.Popup({
                                         offset: [0, -15]
@@ -463,15 +809,32 @@
 
                                     .setHTML('<div id=\'popup\' class=\'popup\' style=\'z-index: 10;\'> <h5> Detail: </h5>' +
                                         '<ul class=\'list-group\'>' +
-                                        '<li class=\'list-group-item\'> Donut: ' + feature.properties.lng + ' </li>' +
-                                        '<li class=\'list-group-item\'> Pie: ' + feature.properties.lat + ' </li>' +
-                                        '<li class=\'list-group-item\'> id Count: ' + feature.properties.london_id + ' </li></ul></div><div><button id=abc onclick=fun(' + feature.properties.lng + ',' + feature.properties.lat + ');>Add to my Trip</button></div>')
-
-                                    .addTo(map);
+                                        '<li class=\'list-group-item\'> Donut: ' + feature.properties.london_donut + ' </li>' +
+                                        '<li class=\'list-group-item\'> Pie: ' + feature.properties.london_pie + ' </li>' +
+                                        '<li class=\'list-group-item\'> id Count: ' + feature.properties.london_id + ' </li></ul></div><div><button id=' + feature.properties.london_id + ' onclick="asd(this.id, ' + feature.properties.lat + ', ' + feature.properties.lng + ')">Add to my Trip</button><br>  <form name="send_pie_donut"><input type="hidden" name="board_pie" value=' + feature.properties.london_pie + '><input type="hidden" name="board_donut" value=' + feature.properties.london_donut + '><button id=view_' + feature.properties.london_id + '>Search Review</button><br><a href="javascript:goPage('+ feature.properties.london_pie + ', ' + feature.properties.london_donut + ');">Write Review</a></div>').addTo(map);
                             });
 
                         });
+                        geojson.feature.forEach(function(marker) {
 
+                            var el = document.createElement('div');
+                            el.className = 'marker';
+                            el.id = marker.properties.id;
+                            el.style.backgroundImage = 'url(' + marker.properties.src + ')';
+                            el.style.width = marker.properties.iconSize[0] + 'px';
+                            el.style.height = marker.properties.iconSize[1] + 'px';
+
+                            el.addEventListener('click', function() {
+                                //window.alert(marker.properties.message);
+                                //여기에 경로그리기
+                            });
+
+                            new mapboxgl.Marker(el)
+                                .setLngLat(marker.geometry.coordinates)
+                                .setPopup(new mapboxgl.Popup()
+                                    .setHTML('<h3>' + marker.properties.message + '</h3><p>' + marker.properties.src + '</p>'))
+                                .addTo(map);
+                        });
                     </script>
                     <br>
                     <p id="start"></p>
@@ -484,38 +847,31 @@
                     </form>
 
                     <p> 주요 관광 지역 </p>
-                    <table class="table table-striped">
-                        <thead></thead>
-                        <tbody>
-                            <tr>
-                                <td><a href="#mapLondon"><img src="/images/london/round_Buckingham_Palace.png" style="width: 100px" title="버킹엄 궁전"></a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#mapLondon"><img src="images/london/round_London_Eye.png" style="width: 100px" title="런던 아이"></a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#mapLondon"><img src="images/london/round_Tower_Bridge.png" style="width: 100px" title="타워 브릿지"></a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#mapLondon"><img src="images/london/round_Trafalgar_Square.png" style="width: 100px" title="트라팔가 광장"></a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#mapLondon"><img src="images/london/round_Hyde_Park.png" style="width: 100px" title="하이드 파크"></a></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#mapLondon"><img src="images/london/round_Saint_Paul.png" style="width: 100px" title="세인트 폴 대성당"></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#mapLondon"><img src="images/london/round_Westminster_Abbey.png" style="width: 100px" title="웨스트민스터 사원"></a>
-                                </td>
-                                <td style="margin: 30px;">123456</td>
-                            </tr>
-                        </tbody>
-
-                    </table>
+                    <div class="item">
+                        <ul id="content-slider" class="content-slider">
+                            <li>
+                                <img src="images/london/round_Buckingham_Palace.png" style="width: 100px" title="버킹엄 궁전" onclick="relayout('Marker_Buckingham_Palace');">
+                            </li>
+                            <li>
+                                <img src="images/london/round_London_Eye.png" style="width: 100px" title="런던 아이">
+                            </li>
+                            <li>
+                                <img src="images/london/round_Tower_Bridge.png" style="width: 100px" title="타워 브릿지" onclick="relayout('Marker_Tower_Bridge');">
+                            </li>
+                            <li>
+                                <img src="images/london/round_Trafalgar_Square.png" style="width: 100px" title="트라팔가 광장" onclick="relayout('Marker_Trafalgar_Square');">
+                            </li>
+                            <li>
+                                <img src="images/london/round_Hyde_Park.png" style="width: 100px" title="하이드 파크" onclick="relayout('Marker_Hyde_Park');">
+                            </li>
+                            <li>
+                                <img src="images/london/round_Saint_Paul.png" style="width: 100px" title="세인트 폴 대성당">
+                            </li>
+                            <li>
+                                <img src="images/london/round_Westminster_Abbey.png" style="width: 100px" title="웨스트민스터 사원">
+                            </li>
+                        </ul>
+                    </div>
                     
                 </main>
             </section>

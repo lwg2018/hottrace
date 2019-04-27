@@ -1,0 +1,7 @@
+update hottrace.dbo.htLink set day_or_night = 'all'
+
+alter table hottrace.dbo.htLink add day_or_night varchar(20)
+
+alter table hottrace.dbo.htLink drop column day_or_night
+
+select sum(weight) from hottrace.dbo.htCircle

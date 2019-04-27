@@ -41,6 +41,9 @@ var circleLinkRouter = require('./routes/map/get_circlelink');
 //머신러닝 Router
 var machineLearningRouter = require('./routes/machine_learning/recommand_place');
 
+//게시판 Router
+//var writeBoard = require('./route/board/write_board');
+
 var app = express();
 
 /*
@@ -103,6 +106,8 @@ app.use('/main', mainmapRouter);
 app.use('/getCircleLink', circleLinkRouter);
 
 app.use('/machineLearning/recommand_place', machineLearningRouter);
+
+//app.use('/board', boardRouter);
 // app.use('/chatTest', chatTest);
 // app.use('/chatRoomTest', chatRoomJoinTest);
 
