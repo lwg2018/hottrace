@@ -13,6 +13,7 @@ node.js를 기반으로 합니다.
 5) ./view 밑의 각 도시 파일(London, paris, manchester)의 accessToken과 mapbox 데이터명을 바꿔주세요.
 mapbox 데이터명은 mssql의 htCircle 테이블 데이터를 csv로 뽑은 뒤 mapbox의 지도 데이터에 삽입하여야 합니다.
 그 뒤, 그 지도 데이터를 map.addLayer의 'source-layer' 키의 value값으로 넣어주세요.(기존 값은 "city명_circle")
+6) ./public/b.html의 async defer src 속성에 구글 맵 key를 넣어주세요.
 
 -------------- 도시 추가법 --------------
 csv 파일을 사용합니다.
