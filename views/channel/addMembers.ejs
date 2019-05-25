@@ -109,12 +109,13 @@
   }
 
   function inviteMembers() {
+     // alert("assssss");
     var chatroom_no = document.getElementById('chatroom_no').value;
     var friends = new Array();
     $('#invitation_list > li').each(function(index){
       friends[index] = $(this).children('.friend_no').val();
     });
-
+      //console.log("222222" + friends);
     if(chatroom_no != 0){
       console.log("chatroom no is : " + chatroom_no);
       location.href="inviteMembers?friends=" + friends + "&chatroom_no=" + chatroom_no;
@@ -201,7 +202,7 @@
         });
         checkedBox.prop('checked', false);
       }else{
-        $("#invitation_list").append("<li><input type='hidden' class='friend_no' value='" + friend_no + "'>" +
+        $("#invitation_list").append("<li><input type='hidden' class='friend_no' value=" + friend_no + ">" +
         "<div class='position-absolute heading-friends-icon'>" +
           "<img src='https://bootdey.com/img/Content/avatar/avatar1.png'>" +
         "</div>" +
@@ -269,7 +270,7 @@
                   <div class="row">
                     <div class="col-sm-7 col-xs-7 sideBar-desc">
                       <span class="name-meta">
-                        <%= friends[i].member_name %></span>
+                        <%= friends[i].name %></span>
                     </div>
                   </div>
                 </div>

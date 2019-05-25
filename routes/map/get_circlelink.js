@@ -19,7 +19,8 @@ router.post('/', function(req, res, next) {
 //    clinkset = [];
 //    count = 0;
 //    wait = 0;
-    var strSQL = "select * from " + process.env.DB_TALK_NAME + ".dbo.htCLink where city='" + req.session.city + "' and s_donut=" + req.body.donut + " and s_pie=" + req.body.pie + " order by weight desc";
+    var strSQL = "select * from " + process.env.DB_TALK_NAME + ".dbo.htCLink where city='" + req.session.city + "' and s_donut=" + req.body.donut + " and s_pie=" + req.body.pie + " and nationality='" + req.body.nationality + "' and day_or_night='" + req.body.d_or_n + "' order by weight desc";
+    console.log(strSQL);
     var clinkset = [];
     var count = 0;
     MsSql.connect(sqlConfig, function(err) {
@@ -28,42 +29,58 @@ router.post('/', function(req, res, next) {
       if(err){
           console.log(err);
       }
-           
+//      if(row.rowsAffected == 0){
+//          res.send({result:true, clinkset: clinkset, count: count});
+//          MsSql.close();
+//      }
+//    console.log('row.rowsAffected ' + row.rowsAffected);
+        //console.log('row.recordset.length ' + row.recordset.length);
       for(var i=0; i<row.recordset.length; i++){
         //count = 0;
+//          console.log('i ' + i);
+//          console.log('distance ' + typeof(req.body.distance));
+//          console.log('row.recordset[i][\'distance\'] ' +typeof(row.recordset[i]['distance']));
         if(row.recordset[i]['t_donut']==req.body.donut && row.recordset[i]['t_pie']==req.body.pie){
             clinkset[5] = row.recordset[i];
-            //console.log('asgashashah');
+            //console.log('asgashashah1');
             continue;
         }
-        if(row.recordset[i]['distance'] <= req.body.distance){
+        if(parseFloat(row.recordset[i]['distance']) <= parseFloat(req.body.distance)){
             clinkset[count] = row.recordset[i];
+            //console.log('asgashashah2');
             count++;
         }
         if(count >= 5)break;
       }
-
+        console.log(count);
+        clinkset[5] = {};
         var request2 = new MsSql.Request();   
-        var strSQL2 =  "select c_lon, c_lat from " + process.env.DB_TALK_NAME + ".dbo.htCircle where city='" + req.session.city + "' and donut=" + req.body.donut + " and pie=" + req.body.pie;
+        var strSQL2 =  "select c_lon, c_lat from " + process.env.DB_TALK_NAME + ".dbo.htCircle where city='" + req.session.city + "' and donut=" + req.body.donut + " and pie=" + req.body.pie + " and nationality='" + req.body.nationality + "' and day_or_night='" + req.body.d_or_n + "'";
         request2.query(strSQL2, (err2, row2) =>{
-           if(err){
+           if(err2){
                console.log(err2);
            }
            clinkset[5]['lon'] = row2.recordset[0]['c_lon'];
            clinkset[5]['lat'] = row2.recordset[0]['c_lat'];
             //console.log(clinkset)
         });
+        if(count == 0){
+          res.send({result:true, clinkset: clinkset, count: count});
+          MsSql.close();
+           // return;
+        }
       var wait = 0;
+
       for(var j=0; j<count; j++){
         var request2 = new MsSql.Request();   
-        var strSQL2 =  "select c_lon, c_lat from " + process.env.DB_TALK_NAME + ".dbo.htCircle where city='" + req.session.city + "' and donut=" + clinkset[j]['t_donut'] + " and pie=" + clinkset[j]['t_pie'];
+        var strSQL2 =  "select c_lon, c_lat from " + process.env.DB_TALK_NAME + ".dbo.htCircle where city='" + req.session.city + "' and donut=" + clinkset[j]['t_donut'] + " and pie=" + clinkset[j]['t_pie'] + " and nationality='" + req.body.nationality + "' and day_or_night='" + req.body.d_or_n + "'";
         request2.query(strSQL2, (err2, row2) =>{
-           if(err){
+           if(err2){
                console.log(err2);
            }
            clinkset[wait]['lon'] = row2.recordset[0]['c_lon'];
            clinkset[wait]['lat'] = row2.recordset[0]['c_lat'];
-            console.log(clinkset[j]);
+            console.log("///" + clinkset[j]);
             //tar_coodinate_x[i] = row2.recordset[0]['c_lon'];
             //tar_coodinate_y[i] = row2.recordset[0]['c_lat'];
             //tar_lon: tar_coodinate_x, tar_lat: tar_coodinate_y
@@ -72,7 +89,7 @@ router.post('/', function(req, res, next) {
                 console.log(clinkset);
                 res.send({result:true, clinkset: clinkset, count: count});
                 MsSql.close();
-             }
+           }
         });
       }
 //        console.log(row.recordset.length);

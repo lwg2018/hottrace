@@ -108,7 +108,7 @@
     $('#invitation_list > li').each(function(index){
       friends[index] = $(this).children('.friend_no').val();
     });
-
+     // alert(friends);
     if(chatroom_no != 0){
       location.href="inviteMembers?friends=" + friends + "&chatroom_no=" + chatroom_no;
     }else{
@@ -184,7 +184,7 @@
     $('#friend_list li').click(function(){
       var checkedBox = $(this).children('.chatInfo_div').children('.sideBar-checked').children('input');
       var friend_no = $(this).children('.chatInfo_div').children('.friend_no').val();
-
+//alert(friend_no);
       if(checkedBox.prop('checked')){
         $('#invitation_list li').each(function(){
           if($(this).children('.friend_no').val() == friend_no){
@@ -258,12 +258,12 @@
                   <div class="row">
                     <div class="col-sm-7 col-xs-7 sideBar-desc">
                       <span class="name-meta">
-                        <%= friends[i].member_name %></span>
+                        <%= friends[i].name %></span>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-2 col-xs-2 sideBar-checked">
-                  <input type="checkbox" id=friend_no<%= friends[i].friend_no %>><label for=friend_no<%= friends[i].friend_no %>></label>
+                  <input type="checkbox" id=friend_no<%= friends[i].friend_no %> disabled><label for=friend_no<%= friends[i].friend_no %>></label>
                 </div>
               </div>
             </li>

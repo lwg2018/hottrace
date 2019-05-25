@@ -1,0 +1,2211 @@
+<!DOCTYPE HTML>
+<!--
+	Transitive by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+
+<head>
+    <title>HOT TRACE</title>
+    <meta charset="utf-8" />
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/jquery.scrolly.min.js"></script>
+    <script src="../assets/js/jquery.scrollex.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="../assets/js/skel.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../js/cityslider.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="../css/cities.css">
+    <link rel="stylesheet" href="../assets/css/board.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+    <link rel="stylesheet" href="../css/lightslider.css" />
+    <script src="../js/lightslider.js"></script>
+    <meta name="description" content="">
+
+    <style type="text/css">
+        /* Individual styles */
+        /* Yoshiko */
+        .input {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            margin: 1em;
+            vertical-align: top;
+        }
+
+        .input__field {
+            position: relative;
+            display: block;
+            float: right;
+            padding: 0.8em;
+            border: 1px solid black;
+            border-radius: 0;
+            background: #fff;
+            color: #000;
+            font-weight: 400;
+            font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            -webkit-appearance: none;
+            /* for box shadows to show on iOS */
+        }
+
+        .input__field:focus {
+            outline: none;
+        }
+
+        .input__label {
+            display: inline-block;
+            float: right;
+            padding: 0 1em;
+
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 10px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .input__label-content {
+            position: relative;
+            display: block;
+            padding: 1.6em 0;
+            width: 100%;
+        }
+
+        .graphic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            fill: none;
+        }
+
+        .icon {
+            color: #ddd;
+            font-size: 150%;
+        }
+
+        .input__field--yoshiko {
+            width: 100%;
+            background-color: #ffffff;
+            -webkit-transition: background-color 0.25s, border-color 0.25s;
+            transition: background-color 0.25s, border-color 0.25s;
+        }
+
+        .input__label--yoshiko {
+            width: 100%;
+            text-align: left;
+            position: absolute;
+            bottom: 60%;
+            pointer-events: none;
+            overflow: hidden;
+            padding: 0 1.25em;
+            -webkit-transform: translate3d(0, 3em, 0);
+            transform: translate3d(0, 3em, 0);
+            -webkit-transition: -webkit-transform 0.25s;
+            transition: transform 0.25s;
+            -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
+        }
+
+        .input__label-content--yoshiko {
+            color: #8B8C8B;
+            padding: 0.25em 0;
+            -webkit-transition: -webkit-transform 0.25s;
+            transition: transform 0.25s;
+            -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
+        }
+
+        .input__label-content--yoshiko::after {
+            content: attr(data-content);
+            position: absolute;
+            font-weight: 800;
+            bottom: 100%;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            color: #a3d39c;
+            padding: 0.25em 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85em;
+        }
+
+        .input__field--yoshiko:focus+.input__label--yoshiko,
+        .input--filled .input__label--yoshiko {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        .input__field--yoshiko:focus+.input__label--yoshiko .input__label-content--yoshiko,
+        .input--filled .input__label-content--yoshiko {
+            -webkit-transform: translate3d(0, 100%, 0);
+            transform: translate3d(0, 100%, 0);
+        }
+
+        .input__field--yoshiko:focus+.input__field--yoshiko,
+        .input--filled .input__field--yoshiko {
+            background-color: transparent;
+            border-color: #a3d39c;
+        }
+
+        .content-slider li {
+            text-align: center;
+            color: #FFF;
+            margin-right: 50px;
+        }
+
+        .content-slider h3 {
+            margin: 0;
+            padding: 70px 0;
+        }
+
+        #layerPop {
+            width: 200px;
+            height: 330px;
+            position: relative;
+            padding: 10px;
+            border: 4px solid #eee;
+            background: #fff;
+            display: none;
+            z-index: 100;
+            float: right;
+        }
+
+        #layerPop .close {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+
+        #deemed {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            filter: Alpha(opacity=50);
+            opacity: 0.5;
+            background: #000;
+            z-index: 1;
+        }
+
+        .info-box {
+            opacity: 0.9;
+            position: relative;
+            float: right;
+            top: 85%;
+            /*            width: 75px;*/
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-family: sans-serif;
+            font-size: 0.8em;
+            line-height: 2em;
+            z-index: 80;
+        }
+
+        /* popup */
+        * {
+            box-sizing: border-box;
+        }
+
+        .dialog__body {
+            width: 110px;
+            height: 50px;
+        }
+
+        .dialog__trigger,
+        .dialog__action {
+            background: #f1f1f1;
+            padding: 5px 10px;
+            font-size: 3px;
+            text-transform: uppercase;
+            display: block;
+            -webkit-transition: all 150ms ease-out;
+            transition: all 150ms ease-out;
+            -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+        }
+
+        .dialog__trigger:hover,
+        .dialog__action:hover {
+            -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
+            -webkit-transition: all 100ms ease-in;
+            transition: all 100ms ease-in;
+            box-shadow: 0 5px 10px rgba(51, 51, 51, 0.4);
+        }
+
+        .dialog__trigger:focus,
+        .dialog__action:focus {
+            outline: 0;
+        }
+
+        .dialog__trigger:active,
+        .dialog__action:active {
+            -webkit-transform: translateY(-3px);
+            transform: translateY(-3px);
+        }
+
+        .dialog {
+            background: #f1f1f1;
+            width: 70%;
+            position: absolute;
+            left: calc(50% - 35%);
+            top: 0;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(51, 51, 51, 0.4);
+            border: 3px solid #333333;
+            visibility: hidden;
+            opacity: 0;
+            -webkit-transition: all 180ms ease-in;
+            transition: all 180ms ease-in;
+        }
+
+        @media (max-width: 600px) {
+            .dialog {
+                width: 90%;
+                left: calc(50% - 45%);
+            }
+        }
+
+        .dialog.dialog--active {
+            top: 10%;
+            visibility: visible;
+            opacity: 1;
+            -webkit-transition: all 250ms ease-out;
+            transition: all 250ms ease-out;
+        }
+
+        .dialog .dialog__close {
+            font-size: 2rem;
+            line-height: 2rem;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            cursor: pointer;
+            padding: 15px;
+            -webkit-transition: color 150ms ease;
+            transition: color 150ms ease;
+        }
+
+        .dialog .dialog__close:hover {
+            color: #E74C3C;
+        }
+
+        .dialog .dialog__title {
+            font-size: 2rem;
+            font-family: 'Slabo 27px', serif;
+            font-weight: 100;
+            margin: 0;
+            padding: 0 0 15px 0;
+            border-bottom: 2px solid #333333;
+        }
+
+        .dialog .dialog__content {
+            font-size: 1.1rem;
+            line-height: 2rem;
+        }
+
+        .dialog .dialog__action {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .dialog_body {
+            width: 180px;
+        }
+
+        .dialog_trigger {
+            border: 3px solid #333333;
+            background: #f1f1f1;
+            padding: 5px 10px;
+            text-transform: uppercase;
+            display: block;
+            -webkit-transition: all 150ms ease-out;
+            transition: all 150ms ease-out;
+            -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+        }
+
+        .my_pop_up {
+            width: 100px;
+            background: #ffffff;
+        }
+
+        .button_design {
+            background-color: #353535;
+            color: #FFFFFF;
+            margin-bottom: 5px;
+            text-align: center;
+            font-size: 7px;
+        }
+
+    </style>
+    <style type="text/css">
+        #divpop {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            z-index: 90;
+            background-color: #000000;
+            filter: Alpha (opacity=50);
+            line-height: 450px;
+            vertical-align: middle;
+            text-align: center;
+            display: block;
+            background-image: url(back_top.jpg)
+        }
+
+    </style>
+    <script language="javascript">
+        document.onkeydown = function() {
+            var iTemp;
+            if (event.keyCode == 13)
+                close_divpop('divpop_frm', 'divpop');
+        }
+
+
+        function close_divpop(frm, div) {
+            document.getElementById(div).style.display = 'none';
+        }
+
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#content-slider").lightSlider({
+                loop: true,
+                keyPress: true
+            });
+        });
+
+    </script>
+
+
+</head>
+
+<body class="subpage">
+    <!--///////////////////1-->
+    <div id="get_circlelink" style="width:0px;height:0px"></div>
+    <!--args: [req.body.city, req.body.people, req.body.age, req.body.money, req.body.time]-->
+    <!--///////////////////2-->
+    <!-- Header -->
+    <header id="header">
+        <div class="logo"><img src="../images/feather2.png" style="width:15px;"><span> made by </span><a href="index.html">HOT TRACE</a></div>
+        <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header>
+
+    <!-- Nav -->
+    <nav id="menu" style="font-family: 'Nanum Gothic, sans-serif">
+        <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/profile">프로필</a></li>
+            <li><a href="/channels">채팅방</a></li>
+            <li><a href="/logout">로그아웃</a></li>
+        </ul>
+    </nav>
+
+    <!-- One -->
+    <section id="one" class="wrapper style2">
+        <div class="inner" style="font-family: 'Nanum Gothic, sans-serif">
+            <div class="box">
+                <div id="divpop" style="display: none;">
+                    <center>
+                        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 37px;">
+                            <tr>
+                                <td height="48px">
+                                </td>
+                            <tr>
+                                <td width="100%" height="400px;" valign="center" align="middle" bgcolor=#ffffff style="display: block;">
+                                    <embed id="embed_url" src="./b.html" loop="-1" ShowControls="false" autostart="true" width="100%" height="360px" style="BORDER-RIGHT: #ffffff 2px solid; BORDER-TOP: #ffffff 2px solid; FILTER: 
+
+progid:DXImageTransform.Microsoft.Blur(PixelRadius=0); BORDER-LEFT: #ffffff 2px solid; BORDER-BOTTOM: #ffffff 2px 
+
+solid">
+                                    <!-- 레이어 닫기 버턴-->
+                                    <form name="divpop_frm" method="post" action="" style="position: absolute;top: 42%;left: 45%;">
+
+                                        <a href="javascript:;" onclick="close_divpop('divpop_frm', 'divpop')">
+                                            <font color=000000><b>[닫기]</b></font>
+                                        </a>
+                                    </form>
+
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </center>
+
+
+                </div>
+                <div id="map" class="map" style="height: 400px;">
+                    <div id='console' style="opacity: 0.8; z-index:80; width:10%;">
+                        <!-- 접기1 -->
+                        <script>
+                            function temp() {
+                                if ($('.session').css("display") == "none") {
+                                    $('.session').css("display", "block");
+                                    $('.session_1').css("display", "block");
+                                    $('.session_2').css("display", "block");
+                                    $('#console').width(255);
+                                } else {
+                                    $('.session').css("display", "none");
+                                    $('.session_1').css("display", "none");
+                                    $('.session_2').css("display", "none");
+                                    $('#console').width("7%");
+                                }
+                            }
+
+                        </script>
+                        <button id="close_btn" onclick="temp();">필터</button>
+                        <!-- 접기2 -->
+                        <div class='session' style="display:none">
+                            <h5 style="margin-bottom: 10px;">Day and Night</h5>
+                            <div class='row' id='filterT' style="margin: 0 0 -1px 0rem;">
+                                <input id='all' type='radio' name='toggleDN' value='all' checked='checked'>
+                                <label for='all' style="color:black;">All</label>
+                                <input id='day' type='radio' name='toggleDN' value='day'>
+                                <label for='day' style="color:black;">Day</label>
+                                <input id='night' type='radio' name='toggleDN' value='night'>
+                                <label for='night' style="color:black;">Night</label>
+                            </div>
+                        </div>
+                        <div class='session_1' style="display:none">
+                            <h5 style="margin-bottom: 10px;">Nationality</h5>
+                            <div class='row' id='filterN' style="margin: 0 0 -1px 0rem; padding-left: 0;">
+                                <input id='both' type='radio' name='toggleNF' value='both' checked='checked'>
+                                <label for='both' style="color:black;">Both</label>
+                                <input id='native' type='radio' name='toggleNF' value='native'>
+                                <label for='native' style="color:black;">Native</label>
+                                <input id='foreigner' type='radio' name='toggleNF' value='foreigner'>
+                                <label for='foreigner' style="color:black;">Foreigner</label>
+                            </div>
+                        </div>
+                        <div class="session_2" style="display: none;">
+                            <h5 style="margin-bottom: 10px;" id="distance">Distance 25KM</h5>
+                            <div class="row" id="filterD">
+                                <input style="width: 80%; margin-left: 25px; padding: 0px;" id="slider" type="range" min="0" max="25" step="1" value="25" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="layerPop">
+                        <span id='close' onclick="closeLayer('layerPop')">&times;</span>
+                        <div>
+                            <img id="popup_pic" style="height:100px;">
+                        </div>
+                        <h6 class="popup_title" style="margin-bottom: 0px; padding-left: 20px; padding-right: 20px;">POPUP TITLE</h6>
+                        <p class="popup_name" style="font-size: 10px; margin-top: 0px; margin-bottom: 3px; padding-left: 20px; padding-right: 20px;">Hyde Park</p>
+                        <p style="font-size: 10px; margin-top: 0px; margin-bottom: 0px; padding-left: 20px; padding-right: 20px;">2.1 <span style="color:gold">★★☆☆☆</span> (14,329)</p>
+                        <p style="margin-top: 0px; padding-left: 20px; padding-right: 20px; margin-bottom: 0px;"><span style="color:gray; font-size: 10px;">공원</span></p>
+
+                        <div style="height: 0px; border-bottom:1px solid #e6e6e6"></div>
+
+                          <div align="center"><button class="button_design" style="width: 45%;height:20px; float: left" onclick="setOrigin(0,0);">출발</button><button class="button_design" style="margin-left:10%;width: 45%;height:20px; float: left" onclick="setDestination(0,0);">도착</button>
+                        </div>
+                        <div style="height: 0px; border-bottom:1px solid #e6e6e6"></div>
+                        <p align="center" style="font-size: 10px;">리뷰 모아보기</p>
+                        <br>
+                    </div>
+                    <!--
+                    <div class="info-box">
+                        <button onclick="reset_line();">일정 리셋</button>
+                    </div>
+-->
+                </div>
+
+
+                <div>
+                    <section class="content" style="padding-bottom: 0px;">
+                        <table style="width: 100%" id="aaa">
+                            <th style="background: #ffffff;">
+                                <span style="float: left;font-size:15px;font-weight:bold;">장소 추천 받기</span>
+                            </th>
+                            <th style="background: #ffffff;padding-top:8px;">
+                                <button id="get_recommand_place" style="float: left;">추천 받기</button>
+                            </th>
+                            <tr>
+                                <td>
+                                    <span class="input input--yoshiko">
+                                        <input onchange="text_change('people_num')" class="input__field input__field--yoshiko" type="text" id="people_num" />
+                                        <label class="input__label input__label--yoshiko" for="people_num">
+                                            <span class="input__label-content input__label-content--yoshiko" data-content="인원 수" id="text_input_people">인원 수</span>
+                                        </label>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="input input--yoshiko">
+                                        <input onchange="text_change('aver_age')" class="input__field input__field--yoshiko" type="text" id="aver_age" />
+                                        <label class="input__label input__label--yoshiko" for="aver_age">
+                                            <span class="input__label-content input__label-content--yoshiko" data-content="나이" id="text_input_age">나이</span>
+                                        </label>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr style="background: #ffffff;">
+                                <td>
+                                    <span class="input input--yoshiko">
+                                        <input onchange="text_change('money')" class="input__field input__field--yoshiko" type="text" id="money" />
+                                        <label class="input__label input__label--yoshiko" for="money">
+                                            <span class="input__label-content input__label-content--yoshiko" data-content="보유 금액" id="text_input_money">보유 금액</span>
+                                        </label>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="input input--yoshiko">
+                                        <input onchange="text_change('time')" class="input__field input__field--yoshiko" type="text" id="time" />
+                                        <label class="input__label input__label--yoshiko" for="time">
+                                            <span class="input__label-content input__label-content--yoshiko" data-content="여행 기간" id="text_input_time">여행 기간</span>
+                                        </label>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+
+
+                    </section>
+                    <div class="content" style="padding-top:0px;">
+                        <hr />
+                        <p> 주요 관광지 </p>
+                        <div class="item">
+                            <ul id="content-slider" class="content-slider">
+                                <li style="height:100px;width:0px;margin:0px;padding:0px;"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper">
+        <div class="inner">
+            <section>
+
+            </section>
+            <div class="copyright">
+                &copy; HOT TRACE, 2019 KWANGWOON UNIV. CS Dept. ALL RIGHTS RESERVED. <br>
+            </div>
+        </div>
+    </footer>
+    <script>
+        var xx = "";
+        var yy = "";
+        function text_change(id) {
+            var asdasd = document.getElementById(id);
+            switch (id) {
+                case id = "people_num": {
+                    if (asdasd.value != "") {
+                        var changer = document.getElementById('text_input_people');
+                        changer.innerText = "";
+                        changer.dataset.content = "";
+                    } else {
+                        var changer = document.getElementById('text_input_people');
+                        changer.innerText = "인원 수";
+                        changer.dataset.content = "인원 수";
+                    }
+                    break;
+                }
+                case id = "aver_age": {
+                    if (asdasd.value != "") {
+                        var changer = document.getElementById('text_input_age');
+                        changer.innerText = "";
+                        changer.dataset.content = "";
+                    } else {
+                        var changer = document.getElementById('text_input_age');
+                        changer.innerText = "나이";
+                        changer.dataset.content = "나이";
+                    }
+                    break;
+                }
+                case id = "money": {
+                    if (asdasd.value != "") {
+                        var changer = document.getElementById('text_input_money');
+                        changer.innerText = "";
+                        changer.dataset.content = "";
+                    } else {
+                        var changer = document.getElementById('text_input_money');
+                        changer.innerText = "보유 금액";
+                        changer.dataset.content = "보유 금액";
+                    }
+                    break;
+                }
+                case id = "time": {
+                    if (asdasd.value != "") {
+                        var changer = document.getElementById('text_input_time');
+                        changer.innerText = "";
+                        changer.dataset.content = "";
+                    } else {
+                        var changer = document.getElementById('text_input_time');
+                        changer.innerText = "여행 기간";
+                        changer.dataset.content = "여행 기간";
+                    }
+                    break;
+                }
+            }
+        }
+        var origin="";
+        var destination="";
+
+        function setOrigin(i, j) {
+            if(i==0 && j==0){
+                origin = [xx, yy];
+            }
+            else
+            origin = [i, j];
+        }
+
+        function setDestination(i, j) {
+            if(i == 0 && j == 0)
+                destination = [xx, yy];
+            else
+                destination = [i, j];
+            if (origin != "") {
+                var object = document.getElementById("embed_url").setAttribute("src", "../b.html?lat1=" + origin[1] + "&lng1=" + origin[0] + "&lat2=" + destination[1] + "&lng2=" + destination[0]);
+                document.getElementById('divpop').style.display = "block";
+            }
+        }
+        function relayout(src) {
+            for (var i = 0; i < attractions.feature.length; i++) {
+                if (src === attractions.feature[i].properties.id) {
+                    map.flyTo({
+                        center: attractions.feature[i].geometry.coordinates
+                    });
+                }
+            }
+        }
+
+        function dEI(elementID) {
+            return document.getElementById(elementID);
+        }
+
+        //레이어 팝업 열기
+        function openLayer(IdName, tpos, lpos) {
+            var pop = dEI(IdName);
+            pop.style.top = tpos + "px";
+            pop.style.left = lpos + "px";
+            pop.style.display = "block";
+
+            var wrap = dEI("map");
+            var reservation = document.createElement("div");
+            reservation.setAttribute("id", "deemed");
+            wrap.appendChild(reservation);
+        }
+
+        //레이어 팝엽 닫기
+        function closeLayer(IdName) {
+            var pop = dEI(IdName);
+            pop.style.display = "none";
+            var clearEl = parent.dEI("deemed");
+            var momEl = parent.dEI("map");
+            momEl.removeChild(clearEl);
+        }
+
+
+        mapboxgl.accessToken = 'your access Token';
+        ///////// 경로 1 //////////////
+        var as;
+        var route;
+        var geojson_route;
+        var distance = "";
+        var coordinates = "";
+        var number = 0;
+        var start = [-122.662323, 45.523751];
+        var default_str = 'https://api.mapbox.com/directions/v5/mapbox/driving/-122.662323,45.523751;-122.662323,45.523751?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+        ///////// 경로 2 //////////////
+        var attractions = {
+            "type": "FeatureCollection",
+            "feature": [{
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Trafalgar Square",
+                        "name": "트라팔가 광장",
+                        "donut": [1, 1],
+                        "category": "시계탑",
+                        "pie": [240, 210],
+                        "src": '../images/london/Trafalgar_Square.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPPOQHp78HJE_IRJ28bamZxfMw6u9Ba6iL1j-4q=w408-h271-k-no',
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.128, 51.508
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "The British Museum",
+                        "name": "영국 박물관",
+                        "src": '../images/london/the_British_Museum.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPbm3KDz9Q7D0An3G6tEaT8YjeEJTgS29DoanUL=w408-h274-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "박물관",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.127, 51.5195
+                        ]
+                    }
+                },
+                {
+                    "돈type": "Feature",
+                    "properties": {
+                        "id": "Tower Bridge",
+                        "name": "타워 브릿지",
+                        "src": '../images/london/Tower_Bridge.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPSc2WwRHtpnAGaMFUFpeul_1nGnWMYRvANjeND=w408-h272-k-no',
+                        "donut": [4],
+                        "pie": [105],
+                        "category": "다리",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0767, 51.506
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Hyde Park",
+                        "name": "하이드 파크",
+                        "src": '../images/london/Hyde_Park.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipNzo3udDD0DIdxzmagoe34TTL7b7t55oHvr_xsR=w442-h240-k-no',
+                        "donut": [3],
+                        "pie": [270],
+                        "category": "공원",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1666, 51.5074
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "St. Paul's Catherdral",
+                        "name": "세인트 폴 대성당",
+                        "donut": [2],
+                        "pie": [90],
+                        "category": "대성당",
+                        "src": '../images/london/Saint_Paul.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipMyo4wV3BTLAynEaAhS1cogAGrmQFpL91rORXj0=w408-h271-k-no',
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0983, 51.5139
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Tower Bridge",
+                        "name": "빅벤",
+                        "src": '../images/london/Big_Ben.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipMM1h0YnDBEZNwt1DIkQfefQWxOhXa3d5w2tWtk=w408-h262-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "시계탑",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1246, 51.5008
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Tower of London",
+                        "name": "런던 탑",
+                        "src": '../images/london/Tower_of_London.png',
+                        "img": 'https://lh6.googleusercontent.com/proxy/6rRF72RF6PbEqHrWjnuDS6FZBlvA2pSDmRalMK9pEJdB-4HcFdNESFgvcfDyADMnZq-K4uePKThVkvQ-z_pagYXfMcsdMgIpQXrHsZf_Q5jtQ7DYrcs6SoaQ6cIY7cY6sCMynou58cjoQDcGoXprKPRq0hV5wM4=w408-h268-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "성곽",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0076, 51.5081
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Westminster Abbey",
+                        "name": "웨스트민스터 사원",
+                        "src": '../images/london/Westminster_Abbey.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPr7PEPhzaOfGm7-SB2cGygkUGjgeelE7S_fmgs=w408-h272-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "교회",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1273, 51.4993
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Palace of Westminster",
+                        "name": "웨스트민스터 궁전",
+                        "src": '../images/london/Palace_of_Westminster.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipOzz6ahEZQzkozaIGal_cF4yfKBvy-V1xJWCxaf=w408-h306-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "명소",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1248, 51.4995
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Natural History Museum",
+                        "name": "자연사 박물관",
+                        "src": '../images/london/Natural_History_Museum.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPuOo4DEGtHRG8TmEVgWysIggUgTzm5lvqjGl7d=w408-h272-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "박물관",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1763, 51.4968
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "The National Gallery",
+                        "name": "내셔널 갤러리",
+                        "src": '../images/london/the_National_Gallery.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipM6Ut-KCtGkztp5waJCVianRtLtNpnXx8SgLCs=w408-h306-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "미술관",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1283, 51.5089
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "The Shard",
+                        "name": "더 샤드",
+                        "src": '../images/london/the_Shard.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipOIyB5PbPMz8oOna33ECy_RstiTROf0kdJMNRD4=w408-h265-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "명소",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0865, 51.5045
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Piccadilly Circus",
+                        "name": "피카딜리 서커스",
+                        "src": '../images/london/Piccadilly_Circus.png',
+                        "img": 'https://geo0.ggpht.com/maps/photothumb/fd/v1?bpb=ChAKDnNlYXJjaC5UQUNUSUxFEiAKEgnBHyD_0wR2SBH-sj77DN-K8CoKDQAAAAAVAAAAABoGCPABEJgD&gl=KR',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "광장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.135, 51.51
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Tate Modern",
+                        "name": "테이트 모던",
+                        "src": '../images/london/Tate_Modern.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipN-8C_IdA54zfrZaIUqaLIYeS4XJ8DYMCYJ2C1N=w408-h272-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "미술관",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0994, 51.5076
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Oxford Street",
+                        "name": "옥스퍼드 스트리트",
+                        "src": '../images/london/Oxford_Street.png',
+                        "img": 'https://geo0.ggpht.com/maps/photothumb/fd/v1?bpb=ChAKDnNlYXJjaC5UQUNUSUxFEiAKEgnBNcNU1Rp2SBEafMY0uWQh2ioKDQAAAAAVAAAAABoGCPABEJgD&gl=KR',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "거리",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.135, 51.51
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Victoria and Albert Museum",
+                        "name": "빅토리아 앨버트 박물관",
+                        "src": '../images/london/V&A_Museum.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPnjt8r7BQeWv2LGOg24HOXHm_iG_8j9JkUKMk4=w408-h272-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "미술관",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1722, 51.4967
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Kensington Palace",
+                        "name": "캔싱턴 팰리스",
+                        "src": '../images/london/Kensington_Palace.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipMTDmnEpQpB6C4DsyXQBcCilH4AMUh0LsYyHtit=w408-h256-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "고궁",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1877, 51.5059
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Borough Market",
+                        "name": "버로우 마켓",
+                        "src": '../images/london/Borough_Market.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipObRVG5oUTKdy0oQbII_JbQbRJYn8hWTmCs3SCl=s483-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "시장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0908, 51.5055
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Covent_Garden",
+                        "name": "코벤트 가든",
+                        "src": '../images/london/Covent_Garden.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipO4moQyyyrDJ_Y1GM-WVpEGyyqAGp7i_AbPwByk=s635-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "쇼핑몰",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1228, 51.512
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Houses of Parliament",
+                        "name": "영국 국회의사당",
+                        "src": '../images/london/Houses_of_Parliament.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPrE4GsDQIi0KtNDGbLZxt6YF_Wdh3XFE8UgEgY=w426-h240-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "역사적 장소",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1242, 51.5005
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Notting Hill",
+                        "name": "노팅힐",
+                        "src": '../images/london/Notting_Hill.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipN0ifxi1nKcfIKDDmgMxPI0Gp9HQQBZ6u92fuhm=w203-h135-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "명소",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.209, 51.516
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "St James's Park",
+                        "name": "세인트 제임스 파크",
+                        "src": '../images/london/StJames_Park.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipNcUyQTcqzWXocY7CTRy9EYeYRby35A7qjWFgHo=w408-h272-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "공원",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1346, 51.5027
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Royal Botanic Gardens, Kew",
+                        "name": "왕립 식물원, 큐",
+                        "src": '../images/london/Kew.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipONpvrdB1jJnj0OvWmRSi0ubwNf4YzFf7On9tNO=w408-h306-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "식물원",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.2948, 51.4793
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Hampton Court Palace",
+                        "name": "햄프턴 코트 궁전",
+                        "src": '../images/london/Hampton_Court_Palace.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPZNnQ4vKLXNC8PTo5jDv5neCp4F0MmHXnAxj73=w426-h240-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "고궁",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.3377, 51.4041
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Soho",
+                        "name": "소호 거리",
+                        "src": '../images/london/Soho.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPFEdeOHnfoU0Lemsd-fzr4IXcR-hx9vqM8ogIC=w203-h114-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "거리",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1365, 51.5137
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Royal Observatory Greenwich",
+                        "name": "그리니치 천문대",
+                        "src": '../images/london/Greenwich.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipN3wr9Y8XWLajzCcAZHMwelsH9ydCx_ZPGUTeJY=w426-h240-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "관측소",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0007, 51.4771
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "ZSL London Zoo",
+                        "name": "ZSL 런던 동물원",
+                        "src": '../images/london/ZSL.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipME5mBOYRZV-OhCS8ksFR1PYhp_GaAm2vE_eOHl=w408-h272-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "동물원",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1534, 51.5353
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Camden Market",
+                        "name": "캠든 마켓",
+                        "src": '../images/london/Camden_Market.png',
+                        "img": 'https://lh6.googleusercontent.com/proxy/VuK-7v5Q-cG_htnroKMf3rP2AOjd-F8mgVkGCEZMqgJlk6jl8HsqmyXlISfNx8M-3CQJ8jbssWMbjoySH01fGd9DtKQu8az_d1BtxmPU-EEjTg4uWvSQL8j170j3reM2vPsBOKa8B9okJORRIcnJJUf_obKl8sw=w408-h330-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "시장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1457, 51.5417
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Millennium Bridge",
+                        "name": "밀레니엄 교",
+                        "src": '../images/london/Millennium_Bridge.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipO5Aoo3Yz881X16PPGsm-HXFLg4sJhATc8poo3w=w408-h306-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "다리",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0985, 51.5095
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Liberty London",
+                        "name": "리버티 백화점",
+                        "src": '../images/london/Liberty_London.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipMr51z0pQMSFJwf883yiYlqixaqbQ_N2hdp9wVs=w408-h551-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "백화점",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1402, 51.5139
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Leicester Square",
+                        "name": "레스터 스퀘어",
+                        "src": '../images/london/Leicester_Square.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipMfTZbHz5O8pj3XsKu4kQGMNroDEEnqvwe3ahAD=w426-h240-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "문화센터",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1301, 51.5104
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "London Dungeon",
+                        "name": "런던 던전",
+                        "src": '../images/london/London_Dungeon.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPbmGv0desDFIDc2iiyBlSEwdjfvEkYnVAWp0je=w408-h271-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "어트랙션",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1188, 51.5026
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Shakespeare's Globe",
+                        "name": "셰익스피어 글로브 극장",
+                        "src": '../images/london/Shakespeare_Globe.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPZBwTM-0_LBwCrsHazgJIDFQzIvl5af0gJiL1r=w408-h306-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "공연예술 극장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0972, 51.5081
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "SEA LIFE Centre London Aquarium",
+                        "name": "SEA LIFE 런던 수족관",
+                        "src": '../images/london/Sea_Life.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipO3ya4J7Y8SemoqC_VSIOtn6EsTdmqAdS2fdIvi=w408-h272-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "관광명소",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1195, 51.5016
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Harrods",
+                        "name": "해롯 백화점",
+                        "src": '../images/london/Harrods.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipObrFnAYBeXKYx-mhO7j2PjpcJfuSkwruCCVMrE=s563-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "백화점",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1632, 51.4994
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Monument to the Greate Fire of London",
+                        "name": "런던 대화재 기념비",
+                        "src": '../images/london/Monument_Fire.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipP522_NgKppGnA5WZz86SNARrJp0QfTOj8fWvf1=w424-h240-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "기념비",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0859, 51.5012
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Her Majesty's Theatre",
+                        "name": "여왕 폐하의 극장",
+                        "src": '../images/london/Her_Majesty.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipO9QyhNWXTSLx3msoRADOH1tJcyyENCS8WmVHeb=w408-h306-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "공연예술 극장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1319, 51.5083
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Theatre Royal, Drury Lane",
+                        "name": "드루리 레인 왕립극장",
+                        "src": '../images/london/Drury_Lane.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPWqitCD11HfNN5Kx_XdM2gHFy7b2zsDWPyNbZC=w408-h306-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "공연예술 극장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1203, 51.5129
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Lyceum Theatre",
+                        "name": "라이온킹 극장",
+                        "src": '../images/london/Lyceum.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipP3IiaahJQmWRhydHEbzikZQx0w7z398Il02_tr=w408-h271-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "공연예술 극장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1199, 51.5116
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Apollo Victoria Theatre",
+                        "name": "아폴로 빅토리아 극장",
+                        "src": '../images/london/Apollo_Victoria.png',
+                        "img": 'https://lh4.googleusercontent.com/proxy/uIetU42U5z66_tQNDsi8uzx3e7L3khCYflyLulA8dlXTV-9i8LI4yf0FZryw49PYEJht12z2VKaKM1kB3ibmkCL3ByoxIy-Kt_kWBwHCZhjptwXp287lbj7qREdTmNFdQ667V7BIjYhYfOHCU4vz6SRRgspxHm4=w424-h240-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "공연예술 극장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1425, 51.4958
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Novello Theatre",
+                        "name": "노벨로 극장",
+                        "src": '../images/london/Novello_Theatre.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipOZAebruUFyHNY88fVoAYxVVNuWe0P1FvHB0Y93=w408-h272-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "공연예술 극장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1192, 51.5123
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Emirates Stadium",
+                        "name": "에미레이츠 스타디움",
+                        "src": '../images/london/Emirates_Stadium.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipO0Wk8NeFhoqeQ8biuwzhDv9cL8ak8hSWKVt9Pu=w408-h265-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "경기장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1084, 51.5549
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Wembley Stadium",
+                        "name": "웸블리 스타디움",
+                        "src": '../images/london/Wembley.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPqV5zBbJSH9OoIjC9uTmNwQ22KCQVZ-_zl3lGT=w408-h306-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "경기장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.2795, 51.5561
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Tottenham Hotspur Stadium",
+                        "name": "토트넘 홋스퍼 스타디움",
+                        "src": '../images/london/Tottenham_Hotspur.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipOZbGjPsLLq4oh5PrzvlA8GNhcWcW_4l7RkjzrM=w408-h306-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "경기장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0664, 51.6043
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Stamford Bridge",
+                        "name": "스탬퍼드 브릿지",
+                        "src": '../images/london/Stamford_Bridge.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipMAcYHTYosc1pUplXovnZSW8XU-RyhvAVAhhfE2=w426-h240-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "경기장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.191, 51.4817
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Boleyn Ground",
+                        "name": "불린 그라운드",
+                        "src": '../images/london/Boleyn_Ground.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipNUG_PFFeHuVvVzSQM5i0mSJcDlFJAjkDErbwbP=w682-h240-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "경기장",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            0.0394, 51.532
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "The Regent's Park",
+                        "name": "리젠트 공원",
+                        "src": '../images/london/the_Regent_Park.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipNJgzvRHbHlK4GGTH7vKNZK7A2a1OqJJ3QPWr3P=w408-h267-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "공원",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1572, 51.531
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Primrose Hill",
+                        "name": "프림로즈 힐",
+                        "src": '../images/london/Primrose_Hill.png',
+                        "img": 'https://lh5.googleusercontent.com/p/AF1QipPJ6EnllVFXAhi_YPX8aLAcSMieRmUAQCIAQZmS=w408-h272-k-no',
+                        "donut": [0],
+                        "pie": [0],
+                        "category": "공원",
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1607, 51.5393
+                        ]
+                    }
+                }
+
+            ]
+        };
+
+        var map = new mapboxgl.Map({
+            container: "map", // container id
+            style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+            center: [-0.12, 51.505], // starting position [lng, lat]
+            zoom: 11.5 // starting zoom
+        });
+        ///////////////////1
+        var geo = {
+            "type": "FeatureCollection",
+            "features": []
+        };
+        var linestring = {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": []
+            }
+        };
+
+        var routes = {
+            "type": "FeatureCollection",
+            "features": []
+        };
+
+        function reset_line() {
+            while (geojson_route.geometry.length > 0) {
+                geojson_route.geometry.pop();
+                routes.features.pop();
+            }
+            coordinates = '';
+            number = 0;
+            getRoute(start);
+        }
+
+        function add_route(point) {
+            coordinates += point.geometry.coordinates[0];
+            coordinates += ',';
+            coordinates += point.geometry.coordinates[1];
+            coordinates += ';';
+        }
+
+        function add_Trip(e, lat, lng) {
+            var temp = geo;
+            number++;
+            if (lat == 0 && lng == 0) {
+                var point = {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            as[0],
+                            as[1]
+                        ]
+                    },
+                    "properties": {
+                        "id": String(e)
+                    }
+                };
+
+            } else {
+                var point = {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            lng,
+                            lat
+                        ]
+                    },
+                    "properties": {
+                        "id": String(e)
+                    }
+                };
+            }
+            if (number == 1) {
+
+                routes.features.push(point);
+                add_route(point);
+            }
+            routes.features.push(point);
+            add_route(point);
+            getRoute(start);
+        }
+
+
+        function getRoute(end) {
+            // make a directions request using cycling profile
+            // an arbitrary start will always be the same
+            // only the end or destination will change
+            var start = [-122.662323, 45.523751];
+            var url;
+            if (number > 1) {
+                url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + coordinates.substring(0, coordinates.length - 1) + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+            } else if (number == 1 || number == 0) {
+                url = default_str;
+            }
+            // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+            var req = new XMLHttpRequest();
+            req.responseType = 'json';
+            req.open('GET', url, true);
+            req.onload = function() {
+                var data = req.response.routes[0];
+                route = data.geometry.coordinates;
+                geojson_route = {
+                    type: 'Feature',
+                    properties: {},
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: route
+                    }
+                };
+                // if the route already exists on the map, reset it using setData
+                if (map.getSource('route')) {
+                    map.getSource('route').setData(geojson_route);
+                } else { // otherwise, make a new request
+                    map.addLayer({
+                        id: 'route',
+                        type: 'line',
+                        source: {
+                            type: 'geojson',
+                            data: {
+                                type: 'Feature',
+                                properties: {},
+                                geometry: {
+                                    type: 'LineString',
+                                    coordinates: geojson_route
+                                }
+                            }
+                        },
+                        layout: {
+                            'line-join': 'round',
+                            'line-cap': 'round'
+                        },
+                        paint: {
+                            'line-color': '#3887be',
+                            'line-width': 5,
+                            'line-opacity': 0.75
+                        }
+                    });
+                }
+                // add turn instructions here at the end
+            };
+            req.send();
+        }
+        ///////////경로 2/////////////
+        function drawLine(x, y, lon_arr, lat_arr, len) {
+            var ori_p = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        x, y
+                    ]
+                }
+            }
+            var tar_p = [];
+            for (var i = 0; i < len; i++) {
+                tar_p[i] = {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            lon_arr[i], lat_arr[i]
+                        ]
+                    }
+                }
+            }
+            //alert(JSON.stringify(tar_p));
+
+            var features = map.queryRenderedFeatures({
+                layers: ['measure-points']
+            });
+
+            while (true) {
+                if (geo.features.length <= 0) {
+                    break;
+                } else {
+                    geo.features.pop();
+                }
+            }
+
+            for (var i = 0; i < len; i++) {
+                geo.features.push(ori_p);
+                geo.features.push(tar_p[i]);
+            }
+
+            if (geo.features.length > 1) {
+                //alert(geo.features.length);
+                for (var i = 0; i < len; i++) {
+                    linestring.geometry.coordinates = geo.features.map(function(ori_p) {
+                        return ori_p.geometry.coordinates;
+                    });
+
+                    linestring.geometry.coordinates = geo.features.map(function(tar_p) {
+                        return tar_p.geometry.coordinates;
+                    });
+                }
+
+                geo.features.push(linestring);
+            }
+
+            map.getSource('geo').setData(geo);
+        }
+
+        var nationality = "all";
+        var d_or_n = "all";
+        var clickeddonut;
+        var clickedpie;
+        var filter_distance = 25;
+        $('#get_circlelink').click(function(event, e) {
+            $.ajax({
+                url: '/getCircleLink',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    donut: clickeddonut,
+                    pie: clickedpie,
+                    distance: filter_distance,
+                    d_or_n: d_or_n,
+                    nationality: nationality
+                },
+                success: function(result) {
+                    if (result['result'] == true && result['count'] != 0) {
+                        //map.setFilter('places-highlighted', ['==', ['number', ['get', 'london_pie']], result['clinkset'][2]['t_pie']]);
+                        var filters = ["any"];
+                        //alert(result['count']);
+
+                        var lon_arr = [];
+                        var lat_arr = [];
+                        for (var i = 0; i < result['count']; i++) {
+                            filters[i + 1] = ["all", ['==', ['to-number', ['get', 'donut']], result['clinkset'][i]['t_donut']],
+                                ['==', ['to-number', ['get', 'pie']], result['clinkset'][i]['t_pie']],
+                                ['==', ['get', 'nationality'], result['clinkset'][i]['nationality']],
+                                ['==', ['get', 'day_or_night'], result['clinkset'][i]['day_or_night']]
+                            ];
+                            lon_arr[i] = result['clinkset'][i]['lon'];
+                            lat_arr[i] = result['clinkset'][i]['lat'];
+                        }
+
+                        drawLine(result['clinkset'][5]['lon'], result['clinkset'][5]['lat'], lon_arr, lat_arr, result['count']);
+                        map.setFilter('places-highlighted', filters);
+                    } else {
+                        alert('적절한 다음 경로가 없습니다.');
+                    }
+                }
+            });
+        });
+
+        function see_review(re_do, re_pi) {
+            location.href = "/board?review_donut=" + re_do + "&review_pie=" + re_pi;
+        }
+
+        // distance 필터
+        document.getElementById('slider').addEventListener('input', function(e) {
+            var D = parseInt(e.target.value);
+            filter_distance = D;
+            document.getElementById('distance').innerText = "Distance " + D + "KM";
+        });
+
+        $('#get_recommand_place').click(function() {
+            $.ajax({
+                url: '/machineLearning/recommand_place',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    people: document.getElementById("people_num").value,
+                    age: document.getElementById("aver_age").value,
+                    money: document.getElementById("money").value,
+                    time: document.getElementById("time").value,
+                    d_or_n: d_or_n,
+                    nationality: nationality
+                },
+                success: function(result) {
+                    if (result['result'] == true) {
+                        //                        alert(result['circle_info']['c_lon']);
+
+                        var recommand_donut = parseInt(result['values'][1]); // string형이면 안됨.
+                        var recommand_pie = parseInt(result['values'][2]);
+                        map.setFilter('places-highlighted', ["all", ['==', ['to-number', ['get', 'donut']], recommand_donut],
+                            ['==', ['to-number', ['get', 'pie']], recommand_pie],
+                            ['==', ['get', 'nationality'], result['circle_info']['nationality']],
+                            ['==', ['get', 'day_or_night'], result['circle_info']['day_or_night']]
+                        ]);
+                        clickeddonut = recommand_donut;
+                        clickedpie = recommand_pie;
+                        if (result['circle_info']['evaluation'] === "매우 긍정적") {
+                            var src = "../images/EV_Extremely_Positive.png";
+                            var text = "매우 긍정적";
+                        } else if (result['circle_info']['evaluation'] === "약간 긍정적") {
+                            var src = "../images/EV_Slightly_Positive.png";
+                            var text = "약간 긍정적";
+                        } else if (result['circle_info']['evaluation'] === "매우 부정적") {
+                            var src = "../images/EV_Extremely_Negative.png";
+                            var text = "매우 부정적";
+                        } else if (result['circle_info']['evaluation'] === "약간 부정적") {
+                            var src = "../images/EV_Slightly_Negative.png";
+                            var text = "약간 부정적";
+                        } else if (result['circle_info']['evaluation'] === "보통") {
+                            var src = "../images/EV_Neutral.png";
+                            var text = "보통";
+                        } else {
+                            var src = "../images/EV_No_Result.png";
+                            var text = "결과 없음";
+                        }
+
+                        if (recommand_donut > 24 || recommand_donut < 1 || recommand_pie > 360 || recommand_pie < 15) {
+                            alert("추천할 장소가 없습니다.");
+                        } else {
+                            var popup = new mapboxgl.Popup({
+                                    offset: [0, -15]
+                                })
+                                .setLngLat([result['circle_info']['c_lon'], result['circle_info']['c_lat']])
+
+                                .setHTML('<img src=' + src + ' style="width:50px;"> ' + text + '<div class="my_pop_up"><button class="button_design" style="width: 100%; height:20px;" onclick=see_review(' + recommand_donut + ',' + recommand_pie + ');>리뷰</button><div><button class="button_design" style="width: 45%;height:20px; float: left" onclick="setOrigin(' + result['circle_info']['c_lon'] + ',' + result['circle_info']['c_lat'] + ');">출발</button><button class="button_design" style="margin-left:10%;width: 45%;height:20px; float: left" onclick="setDestination(' + result['circle_info']['c_lon'] + ',' + result['circle_info']['c_lat'] + ');">도착</button></div><button class="button_design" style="width: 100%;height:20px;" onclick=\'$("#get_circlelink").trigger("click", []);\'>다음 장소 추천</button></div>')
+                                .addTo(map);
+
+                            map.flyTo({
+                                center: [result['circle_info']['c_lon'], result['circle_info']['c_lat']]
+                            });
+                        }
+                    }
+                }
+            });
+        });
+        ///////////////////2
+
+        map.on('load', function() {
+            map.addSource('dots', {
+                "type": "vector",
+                "url": "mapbox://swpark706.cjv99wp0n05vh2rnumn3zsohl-5h80d"
+            });
+            //////////////1
+            map.addSource('geo', {
+                "type": "geojson",
+                "data": geo
+            });
+            map.addLayer({
+                id: 'lines',
+                type: 'line',
+                source: 'geo',
+                layout: {
+                    'visibility': 'visible',
+                    'line-cap': 'round',
+                    'line-join': 'round'
+                },
+                paint: {
+                    'line-color': '#d01ab2',
+                    'line-width': 4,
+                    'line-opacity': 0.5
+                },
+                filter: ['in', '$type', 'LineString']
+            });
+            map.addLayer({
+                id: 'measure-points',
+                type: 'circle',
+                source: 'geo',
+                paint: {
+                    'circle-radius': 5,
+                    'circle-color': '#000'
+                },
+                layout: {
+                    'visibility': 'visible'
+                },
+                filter: ['in', '$type', 'Point']
+            });
+            map.addLayer({
+                "id": "places-highlighted",
+                "type": "circle",
+                "source": 'dots',
+                'source-layer': 'London_circle',
+
+                'paint': {
+                    'circle-radius': [
+                        'interpolate',
+                        ['linear'],
+                        ['to-number', ['get', 'weight']],
+                        100, 5,
+                        500, 8,
+                        1000, 11,
+                        5000, 14,
+                        10000, 17,
+                        50000, 20,
+                        100000, 25,
+                    ],
+                    'circle-color': '#FF00FF',
+                    'circle-opacity': 1.0
+                },
+                "filter": ["<", ["to-number", ["get", "weight"]], 0]
+            }, 'settlement-label');
+            /////////////2
+            map.addLayer({
+                'id': 'places',
+                'type': 'circle',
+                'source': 'dots',
+                'source-layer': 'London_circle',
+                'paint': {
+                    'circle-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['to-number', ['get', 'weight']],
+                        100, '#FA8C8C',
+                        500, '#FA8282',
+                        1000, '#F06E6E',
+                        5000, '#EB5A5A',
+                        10000, '#EB5050',
+                        50000, '#EB3232',
+                        100000, '#EB0000',
+                    ],
+                    //'circle-radius': ['number', ['get', 'london_radius']],
+                    'circle-radius': [
+                        'interpolate',
+                        ['linear'],
+                        ['to-number', ['get', 'weight']],
+                        100, 5,
+                        500, 8,
+                        1000, 11,
+                        5000, 14,
+                        10000, 17,
+                        50000, 20,
+                        100000, 25,
+                    ],
+                    'circle-opacity': 0.5,
+                    'circle-stroke-width': 0.3,
+                    'circle-stroke-color': 'white'
+                },
+                "filter": ["all", ["==", ["get", "nationality"], 'all'],
+                    ["==", ["get", "day_or_night"], "all"]
+                ]
+            });
+
+            map.on('click', 'places', function(e) {
+                ///////////////////1
+                //map.setFilter('places-highlighted', ['==', ['number', ['get', 'london_donut']], feature.properties.london_donut]);
+                clickeddonut = e.features[0].properties.donut;
+                clickedpie = e.features[0].properties.pie;
+                //$("#get_circlelink").trigger("click", [e]);
+                ///////////////////2
+                if (e.features[0].properties.evaluation === "Extremely Positive") {
+                    var src = "../images/EV_Extremely_Positive.png";
+                    var text = "매우 긍정적";
+                } else if (e.features[0].properties.evaluation === "Slightly Positive") {
+                    var src = "../images/EV_Slightly_Positive.png";
+                    var text = "약간 긍정적";
+                } else if (e.features[0].properties.evaluation === "Extremely Negative") {
+                    var src = "../images/EV_Extremely_Negative.png";
+                    var text = "매우 부정적";
+                } else if (e.features[0].properties.evaluation === "Slightly Negative") {
+                    var src = "../images/EV_Slightly_Negative.png";
+                    var text = "약간 부정적";
+                } else if (e.features[0].properties.evaluation === "Neutral") {
+                    var src = "../images/EV_Neutral.png";
+                    var text = "보통";
+                } else {
+                    var src = "../images/EV_No_Result.png";
+                    var text = "결과 없음";
+                }
+                var lat = e.features[0].geometry.coordinates[0];
+                var lng = e.features[0].geometry.coordinates[1];
+                var popup = new mapboxgl.Popup({
+                        offset: [0, -15]
+                    })
+                    .setLngLat(e.features[0].geometry.coordinates)
+                    .setHTML('<img src=' + src + ' style="width:50px;"> ' + text + '<div class="my_pop_up"><button class="button_design" style="width: 100%; height:20px;" onclick=see_review(' + clickeddonut + ',' + clickedpie + ');>리뷰</button><div><button class="button_design" style="width: 45%;height:20px; float: left" onclick="setOrigin(' + lat + ',' + lng + ');">출발</button><button class="button_design" style="margin-left:10%;width: 45%;height:20px; float: left" onclick="setDestination(' + lat + ',' + lng + ');">도착</button></div><button class="button_design" style="width: 100%;height:20px;" onclick=\'$("#get_circlelink").trigger("click", []);\'>다음 장소 추천</button></div>')
+                    .addTo(map);
+            });
+
+
+
+        });
+        var filterONE = ["==", ["get", "day_or_night"], 'all'];
+        var filterTWO = ["==", ["get", "nationality"], 'all'];
+
+        document.getElementById('filterT').addEventListener('change', function(e) {
+            var twits = e.target.value;
+
+            if (twits == 'all') {
+                filterONE = ["==", ["get", "day_or_night"], 'all'];
+                d_or_n = "all";
+            } else if (twits == 'day') {
+                filterONE = ["==", ["get", "day_or_night"], 'day'];
+                d_or_n = "day";
+            } else if (twits == 'night') {
+                filterONE = ["==", ["get", "day_or_night"], 'night'];
+                d_or_n = "night";
+            }
+            map.setFilter('places', ['all', filterONE, filterTWO]);
+
+        });
+
+        document.getElementById('filterN').addEventListener('change', function(e) {
+            var twits = e.target.value;
+
+            if (twits == 'both') {
+                filterTWO = ["==", ["get", "nationality"], 'all'];
+                nationality = "all";
+            } else if (twits == 'native') {
+                filterTWO = ["==", ["get", "nationality"], 'native'];
+                nationality = "native";
+            } else if (twits == 'foreigner') {
+                filterTWO = ["==", ["get", "nationality"], 'foreigner'];
+                nationality = "foreigner";
+            }
+            map.setFilter('places', ['all', filterONE, filterTWO]);
+
+        });
+
+        attractions.feature.forEach(function(marker) {
+            var el = document.createElement('div');
+            el.className = 'marker';
+            el.id = marker.properties.id;
+            el.name = marker.properties.name;
+            el.style.backgroundImage = 'url(./' + marker.properties.src + ')';
+            el.style.width = marker.properties.iconSize[0] + 'px';
+            el.style.height = marker.properties.iconSize[1] + 'px';
+            el.src = marker.properties.img;
+            el.style.backgroundSize = 'cover';
+            el.category = marker.properties.category;
+
+            el.addEventListener('click', function() {
+                xx = marker.geometry.coordinates[0];
+                yy = marker.geometry.coordinates[1];
+                $('.popup_title').text(marker.properties.name);
+                $('#popup_pic').attr("src", el.src);
+                $('.popup_name').text(marker.properties.id);
+                $('.place_category').text(marker.properties.category);
+                as = marker.geometry.coordinates;
+                relayout(this.id);
+                //document.getElementById('popup_console').style.display = 'block';
+                openLayer('layerPop', 0, 0);
+            });
+
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .addTo(map);
+        });
+
+        attractions.feature.forEach(function(e) {
+            //alert(e.properties.id);
+            $('#content-slider').append('<li><img src = ' + e.properties.src + ' style = "width: 100px"' +
+                'title = "' + e.properties.id + '" onclick = "relayout(this.title)"></li>');
+        });
+
+    </script>
+    <style>
+        .mapboxgl-popup-close-button {
+            background-color: transparent !important;
+            color: #fff !important;
+            height: 40px;
+            width: 30px;
+            font-size: 40px;
+            float: inherit;
+        }
+
+        .mapboxgl-popup-content {
+            border: 3px solid black;
+        }
+
+    </style>
+    <!-- Scripts -->
+</body>
+
+</html>

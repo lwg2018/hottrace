@@ -9,13 +9,13 @@ router.get('/', function(req, res, next) {
 
   if(sess.logined){
 
-    var sqlConfig = {
-      user: process.env.DB_KWU_USER,
-      password: process.env.DB_KWU_PASSWORD,
-      server: process.env.DB_HOST,
-      port: process.env.SERVER_PORT,
-      database: process.env.DB_KWU_NAME
-    };
+var sqlConfig = {
+    user: process.env.DB_TALK_USER,                                                                              
+    password: process.env.DB_TALK_PASSWORD,
+    server: process.env.DB_HOST,
+    port: process.env.SERVER_PORT,
+    database: process.env.DB_TALK_NAME
+};
 
     var chatroom_no = req.query.chatroom_no;
     if(chatroom_no == undefined) chatroom_no = '0';
@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 
     var strSQL = "p_uw_chatroom_exit " + chatroom_no + ", " + member_no;
     console.log(strSQL);
-
+    
     MsSql.connect(sqlConfig, function(err) {
       var request = new MsSql.Request();
 
@@ -33,9 +33,30 @@ router.get('/', function(req, res, next) {
 
           var request = new MsSql.Request();
 
-          request.query(strSQL, (err, rows) => {
-            res.render('channel/channelList', {channels : rows.recordset});
-              MsSql.close();
+          request.query(strSQL, (err, rows1) => {
+              
+              strSQL = "select * from hottrace.dbo.htChatmember a, hottrace.dbo.htMember b where a.chatroom_no=" + req.query.chatroom_no + " and a.member_no=b.member_no";
+              var request = new MsSql.Request();
+              
+              request.query(strSQL, (err, rows) =>{
+                    var chatroom_title = '';
+                    for(var i=0; i<rows.recordset.length; i++){
+                        if(i==0){
+                            chatroom_title = rows.recordset[i]['name'];
+                        }
+                        else{
+                            chatroom_title = chatroom_title + ", " + rows.recordset[i]['name'];
+                        }
+                    }
+                    strSQL = "update hottrace.dbo.htChatroom set chatroom_title='" + chatroom_title + "' where chatroom_no=" + req.query.chatroom_no;
+                  
+                    var request = new MsSql.Request();
+                    request.query(strSQL, (err, rows) => {
+                        res.render('channel/channelList', {channels : rows1.recordset});
+                        MsSql.close();
+                    });
+
+                });
 
         });
         // if(err == 'ETIMEOUT') console.log('ETIMEOUT');

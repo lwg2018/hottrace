@@ -8,7 +8,7 @@ router.post('/', function(req, res, next) {
 
   var sess = req.session
 
-  if(sess.logined){
+  //if(sess.logined){
     // CONNECT TO MONGODB SERVER
     var client = new MongoClient(process.env.DB_MONGO_URL, { useNewUrlParser: true });
 
@@ -35,9 +35,10 @@ router.post('/', function(req, res, next) {
 
       client.close();
     });
-  }else{
-    res.redirect('/');
-  }
+  //}
+//else{
+//    res.redirect('/');
+//  }
 });
 
 module.exports = router;

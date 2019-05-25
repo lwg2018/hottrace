@@ -21,10 +21,10 @@
           <div class="row heading">
             <div class="col-sm-4 col-xs-4 heading-avatar">
               <div class="heading-avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"> 채 팅
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"> 채팅
               </div>
             </div>
-            <div class="col-sm-1 col-xs-1  heading-dot  pull-right">
+            <div class="col-sm-1 col-xs-1  heading-dot  pull-right" onclick='location.href="/"'>
               <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
             </div>
             <div class="col-sm-2 col-xs-2 heading-compose  pull-right" onclick="openChannel()">
@@ -54,7 +54,7 @@
                 </div>
               </div>
               <input type="hidden" id="chatroom_no" value=<%= channels[i].chatroom_no %>>
-              <input type="hidden" id="title1" value=<%= channels[i].chatroom_title %>>
+              <input type="hidden" id="title1" value="<%= channels[i].chatroom_title %>">
               <div class="col-sm-9 col-xs-9 sideBar-main">
                 <div class="row">
                   <div class="col-sm-8 col-xs-8 sideBar-desc">
@@ -92,7 +92,11 @@
             </div> -->
           </div>
         </div>
+          
       </div>
+      
     </div>
+    
   </div>
+
 </body>

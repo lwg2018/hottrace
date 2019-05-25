@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+<!--
+	Transitive by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+
+<head>
+    <title>HOT TRACE</title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="css/cities.css">
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+    <link rel="stylesheet" href="./css/lightslider.css" />
+    <meta name="description" content="">
+    <script src="./js/lightslider.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    
+    <style type="text/css">
+         .content-slider li {
+            text-align: center;
+            color: #FFF;
+        }
+
+        .content-slider h3 {
+            margin: 0;
+            padding: 70px 0;
+        }
+        
+        #layerPop {
+            width: 400px;
+            height: 500px;
+            position: absolute;
+            padding: 10px;
+            border: 4px solid #eee;
+            background: #fff;
+            display: none;
+            z-index: 100;
+        }
+
+        #layerPop .close {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+
+        #deemed {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            filter: Alpha(opacity=50);
+            opacity: 0.5;
+            background: #000;
+            z-index: 1;
+        }
+
+    </style>
+    <script>
+        $(document).ready(function() {
+            $("#content-slider").lightSlider({
+                loop: true,
+                keyPress: true
+            });
+        });
+
+    </script>
+
+
+</head>
+
+<body class="subpage">
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo"><img src="images/feather2.png" style="width:15px;"><span> made by </span><a href="index.html">HOT TRACE</a></div>
+        <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header>
+
+    <!-- Nav -->
+    <nav id="menu" style="font-family: 'Nanum Gothic, sans-serif">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="generic.html">로그인</a></li>
+            <li><a href="elements.html">회원가입</a></li>
+        </ul>
+    </nav>
+
+    <!-- One -->
+    <section id="one" class="wrapper style2">
+        <div class="inner" style="font-family: 'Nanum Gothic, sans-serif">
+            <div class="box">
+                <div id="map" class="map" style="height: 400px;"></div>
+                <div id='console' style="opacity: 0.8;">
+                    <div class='session'>
+                        <h5 style="margin-bottom: 10px;">Day and Night</h5>
+                        <div class='row' id='filterT' style="margin: 0 0 -1px 0rem;">
+                            <input id='all' type='radio' name='toggleDN' value='all' checked='checked'>
+                            <label for='all' style="color:black;">All</label>
+                            <input id='day' type='radio' name='toggleDN' value='day'>
+                            <label for='day' style="color:black;">Day</label>
+                            <input id='night' type='radio' name='toggleDN' value='night'>
+                            <label for='night' style="color:black;">Night</label>
+                        </div>
+                    </div>
+                    <div class='session_1'>
+                        <h5 style="margin-bottom: 10px;">Nationality</h5>
+                        <div class='row' id='filterN' style="margin: 0 0 -1px 0rem; padding-left: 0;">
+                            <input id='both' type='radio' name='toggleNF' value='both' checked='checked'>
+                            <label for='both' style="color:black;">Both</label>
+                            <input id='native' type='radio' name='toggleNF' value='native'>
+                            <label for='native' style="color:black;">Native</label>
+                            <input id='foreigner' type='radio' name='toggleNF' value='foreigner'>
+                            <label for='foreigner' style="color:black;">Foreigner</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="layerPop">
+                    <span id='close' onclick="closeLayer('layerPop')">&times;</span>
+                    <div>
+                        <img id="popup_pic" style="height:150px;">
+                    </div>
+                    <h3 class="popup_title" style="margin-bottom: 0px; padding-left: 20px; padding-right: 20px;">POPUP TITLE</h3>
+                    <p class="popup_name" style="font-size: 13px; margin-top: 0px; margin-bottom: 3px; padding-left: 20px; padding-right: 20px;">Hyde Park</p>
+                    <p style="font-size: 13px; margin-top: 0px; margin-bottom: 0px; padding-left: 20px; padding-right: 20px;">2.1 <span style="color:gold">★★☆☆☆</span> (14,329)</p>
+                    <p style="margin-top: 0px; padding-left: 20px; padding-right: 20px;"><span style="color:gray; font-size: 13px;">공원</span></p>
+
+                    <div style="height: 0px; border-bottom:1px solid #e6e6e6"></div>
+
+                    <div align="center"><button style="background-color:white; border-radius: 30px;"><img alt="경로" jstcache="164" src="images/route.png"><span jstcache="165" style="display:none"></span></button>
+                        <div jstcache="166" class="iRxY3GoUYUY__below-button-text gm2-caption" jsan="7.iRxY3GoUYUY__below-button-text,7.gm2-caption" style="color: rgb(51, 140, 250); font-family: Roboto, &quot;Noto Sans KR&quot;, Arial, sans-serif; font-size:13px;"> ROUTE</div>
+                    </div>
+                    <div style="height: 0px; border-bottom:1px solid #e6e6e6"></div>
+
+                    <br>
+
+                    <p align="center">리뷰 모아보기</p>
+                    <br>
+                </div>
+
+                
+                <div class="content">
+                    <hr />
+                    <p> 주요 관광지 </p>
+                    <div class="item">
+                        <ul id="content-slider" class="content-slider">
+                            <li>
+                                <img src="images/london/round_Buckingham_Palace.png" style="width: 100px" title="버킹엄 궁전" onclick="relayout('Marker_Buckingham_Palace');">
+                            </li>
+                            <li>
+                                <img src="images/london/round_London_Eye.png" style="width: 100px" title="런던 아이">
+                            </li>
+                            <li>
+                                <img src="images/london/round_Tower_Bridge.png" style="width: 100px" title="타워 브릿지" onclick="relayout('Marker_Tower_Bridge');">
+                            </li>
+                            <li>
+                                <img src="images/london/round_Trafalgar_Square.png" style="width: 100px" title="트라팔가 광장" onclick="relayout('Marker_Trafalgar_Square');">
+                            </li>
+                            <li>
+                                <img src="images/london/round_Hyde_Park.png" style="width: 100px" title="하이드 파크" onclick="relayout('Marker_Hyde_Park');">
+                            </li>
+                            <li>
+                                <img src="images/london/round_Saint_Paul.png" style="width: 100px" title="세인트 폴 대성당">
+                            </li>
+                            <li>
+                                <img src="images/london/round_Westminster_Abbey.png" style="width: 100px" title="웨스트민스터 사원">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper">
+        <div class="inner">
+            <section>
+
+            </section>
+            <div class="copyright">
+                &copy; HOT TRACE, 2019 KWANGWOON UNIV. CS Dept. ALL RIGHTS RESERVED. <br>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function relayout(src) {
+            for (var i = 0; i < attractions.feature.length; i++) {
+                if (src === attractions.feature[i].properties.id) {
+                    map.flyTo({
+                        center: attractions.feature[i].geometry.coordinates
+                    });
+                }
+            }
+        }
+
+        function dEI(elementID) {
+            return document.getElementById(elementID);
+        }
+
+        //레이어 팝업 열기
+        function openLayer(IdName, tpos, lpos) {
+            var pop = dEI(IdName);
+            pop.style.top = tpos + "px";
+            pop.style.left = lpos + "px";
+            pop.style.display = "block";
+
+            var wrap = dEI("map");
+            var reservation = document.createElement("div");
+            reservation.setAttribute("id", "deemed");
+            wrap.appendChild(reservation);
+        }
+
+        //레이어 팝엽 닫기
+        function closeLayer(IdName) {
+            var pop = dEI(IdName);
+            pop.style.display = "none";
+            var clearEl = parent.dEI("deemed");
+            var momEl = parent.dEI("map");
+            momEl.removeChild(clearEl);
+        }
+
+
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic3dwYXJrNzA2IiwiYSI6ImNqc3E0czNqZjAxcmU0NGxia3hnMmhzZGsifQ.PeerIezauoZBKoR7jSKa1A';
+
+        var attractions = {
+            "type": "FeatureCollection",
+            "feature": [{
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Trafalgar Square",
+                        "name": "트라팔가 광장",
+                        "src": 'images/london/round_Trafalgar_Square.png',
+                        "img": 'images/london/square_hyde_park.jpg',
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.128, 51.508
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Tower Bridge",
+                        "name": "타워 브릿지",
+                        "src": 'images/london/round_Tower_Bridge.png',
+                        "img": 'images/london/square_hyde_park.jpg',
+                        "stars": 0,
+                        "reviews": 30,
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0767, 51.506
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Hyde Park",
+                        "name": "하이드 파크",
+                        "src": 'images/london/round_Hyde_Park.png',
+                        "img": 'images/london/square_hyde_park.jpg',
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1666, 51.5074
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "St. Paul's Catherdral",
+                        "name": "세인트 폴 대성당",
+                        "src": 'images/london/round_Saint_Paul.png',
+                        "img": 'images/london/square_hyde_park.jpg',
+                        "iconSize": [50, 50]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0983, 51.5139
+                        ]
+                    }
+                }
+            ]
+        };
+
+
+        var map = new mapboxgl.Map({
+            container: "map", // container id
+            style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+            center: [-0.12, 51.505], // starting position [lng, lat]
+            zoom: 11.5 // starting zoom
+        });
+
+        map.on('load', function() {
+            map.addSource('dots', {
+                "type": "vector",
+                "url": "mapbox://swpark706.cjv99wp0n05vh2rnumn3zsohl-5h80d"
+            });
+
+            map.addLayer({
+                'id': 'places',
+                'type': 'circle',
+                'source': 'dots',
+                'source-layer': 'London_circle',
+                'paint': {
+                    'circle-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['to-number', ['get', 'weight']],
+                        100, '#FA8C8C',
+                        500, '#FA8282',
+                        1000, '#F06E6E',
+                        5000, '#EB5A5A',
+                        10000, '#EB5050',
+                        50000, '#EB3232',
+                        100000, '#EB0000',
+                    ],
+                    //'circle-radius': ['number', ['get', 'london_radius']],
+                    'circle-radius': [
+                        'interpolate',
+                        ['linear'],
+                        ['to-number', ['get', 'weight']],
+                        100, 5,
+                        500, 8,
+                        1000, 11,
+                        5000, 14,
+                        10000, 17,
+                        50000, 20,
+                        100000, 25,
+                    ],
+                    'circle-opacity': 0.5,
+                    'circle-stroke-width': 0.3,
+                    'circle-stroke-color': 'white'
+                },
+                "filter": ["all", ["==", ["get", "nationality"], 'all'],
+                    ["==", ["get", "day_or_night"], "all"]
+                ]
+            });
+            
+            
+            
+            
+            
+        });
+        var filterONE = ["==", ["get", "day_or_night"], 'all'];
+        var filterTWO = ["==", ["get", "nationality"], 'all'];
+
+        document.getElementById('filterT').addEventListener('change', function(e) {
+            var twits = e.target.value;
+
+            if (twits == 'all') {
+                filterONE = ["==", ["get", "day_or_night"], 'all'];
+            } else if (twits == 'day') {
+                filterONE = ["==", ["get", "day_or_night"], 'day'];
+            } else if (twits == 'night') {
+                filterONE = ["==", ["get", "day_or_night"], 'night'];
+            }
+            map.setFilter('places', ['all', filterONE, filterTWO]);
+
+        });
+
+        document.getElementById('filterN').addEventListener('change', function(e) {
+            var twits = e.target.value;
+
+            if (twits == 'both') {
+                filterTWO = ["==", ["get", "nationality"], 'all'];
+            } else if (twits == 'native') {
+                filterTWO = ["==", ["get", "nationality"], 'native'];
+            } else if (twits == 'foreigner') {
+                filterTWO = ["==", ["get", "nationality"], 'foreigner'];
+            }
+            map.setFilter('places', ['all', filterONE, filterTWO]);
+
+        });
+
+        
+        attractions.feature.forEach(function(marker) {
+            var el = document.createElement('div');
+            el.className = 'marker';
+            el.id = marker.properties.id;
+            el.name = marker.properties.name;
+            el.style.backgroundImage = 'url(' + marker.properties.src + ')';
+            el.style.width = marker.properties.iconSize[0] + 'px';
+            el.style.height = marker.properties.iconSize[1] + 'px';
+            el.src = marker.properties.img;
+
+            el.addEventListener('click', function() {
+                $('.popup_title').text(marker.properties.name);
+                $('#popup_pic').attr("src", el.src);
+                $('.popup_name').text(marker.properties.id);
+
+                relayout(this.id);
+                //document.getElementById('popup_console').style.display = 'block';
+                openLayer('layerPop', 10, 20);
+            });
+
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .addTo(map);
+        });
+        
+
+    </script>
+    <!-- Scripts -->
+
+
+
+</body>
+
+</html>

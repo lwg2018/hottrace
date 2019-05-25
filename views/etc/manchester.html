@@ -1,0 +1,529 @@
+<html>
+<style>
+
+
+</style>
+
+<head>
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/start.css">
+    <link rel="stylesheet" href="css/cities.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js">
+    </script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="./css/lightslider.css" />
+    <link rel="stylesheet" href="./css/cityslider.css" />
+    <style>
+        body {
+            background-color: #464646;
+        }
+
+        .demo .item {
+            margin-bottom: 60px;
+        }
+
+        .content-slider li {
+            text-align: center;
+            color: #FFF;
+        }
+
+        .content-slider h3 {
+            margin: 0;
+            padding: 70px 0;
+        }
+
+        .demo {
+            width: 800px;
+        }
+
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="./js/lightslider.js"></script>
+    <script src="./js/cityslider.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#content-slider").lightSlider({
+                loop: true,
+                keyPress: true
+            });
+        });
+        $(document).ready(function() {
+            $("#tabs-list").citySlider({
+                loop: true,
+                keyPress: true
+            });
+        });
+
+    </script>
+
+</head>
+
+<body>
+    <style>
+        
+
+    </style>
+    <div id="mymap"></div>
+    <div id='console' style="opacity: 0.8;">
+        <div class='session'>
+            <h2>Day and Night</h2>
+            <div class='row' id='filterT'>
+                <input id='all' type='checkbox' name='toggle' value='all' checked='checked'>
+                <label for='all'>All</label>
+                <input id='LondonDay' type='checkbox' name='toggle' value='Londonday' checked='checked'>
+                <label for='LondonDay'>Day</label>
+                <input id='LondonNight' type='checkbox' name='toggle' value='LondonNight' checked='checked'>
+                <label for='1000'>Night</label>
+            </div>
+        </div>
+        <div class='session_1'>
+            <h2>Day and Night</h2>
+            <div class='row' id='filterN'>
+                <input id='all' type='checkbox' name='toggle' value='all' checked='checked'>
+                <label for='all'>All</label>
+                <input id='LondonNative' type='checkbox' name='toggle' value='LondonNative' checked='checked'>
+                <label for='LondonNative'>Native</label>
+                <input id='LondonForeigner' type='checkbox' name='toggle' value='LondonForeigner' checked='checked'>
+                <label for='LondonForeigner'>Foreigner</label>
+            </div>
+        </div>
+    </div>
+    <div id='state-legend' class='legend'>
+        <h4>The Amount of Tweets</h4>
+        <div><span style='background-color: #FF0000'></span>100,000</div>
+        <div><span style='background-color: #FC8323'></span>50,000</div>
+        <div><span style='background-color: #CA8323'></span>10,000</div>
+        <div><span style='background-color: #DA9C20'></span>5,000</div>
+        <div><span style='background-color: #B0B14C'></span>1,000</div>
+        <div><span style='background-color: #EED322'></span>500</div>
+        <div><span style='background-color: #F2F12D'></span>100</div>
+    </div>
+    <div id='map-overlay' class='map-overlay'></div>
+    <script>
+        function relayout(src) {
+            alert(src);
+            for (var i = 0; i < geojson.feature.length; i++) {
+                if (src === geojson.feature[i].properties.id) {
+                    map.flyTo({
+                        center: geojson.feature[i].geometry.coordinates
+                    });
+                }
+            }
+        }
+        
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic3dwYXJrNzA2IiwiYSI6ImNqc3E0czNqZjAxcmU0NGxia3hnMmhzZGsifQ.PeerIezauoZBKoR7jSKa1A';
+
+        var startPoint;
+
+        var geojson = {
+            "type": "FeatureCollection",
+            "feature": [{
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Marker_Trafalgar_Square",
+                        "message": "Here is the Trafalgar Square",
+                        "src": 'images/london/round_Trafalgar_Square.png',
+                        "iconSize": [60, 60]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.128, 51.508
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Marker_Tower_Bridge",
+                        "message": "Here is the Tower Bridge",
+                        "src": 'images/london/round_Tower_Bridge.png',
+                        "iconSize": [60, 60]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.0767, 51.506
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "id": "Marker_Hyde_Park",
+                        "message": "Here is the Hyde Park",
+                        "src": 'images/london/round_Hyde_Park.png',
+                        "iconSize": [60, 60]
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -0.1666, 51.5074
+                        ]
+                    }
+                }
+            ]
+        };
+
+        var geo = {
+            "type": "FeatureCollection",
+            "features": []
+        };
+
+        // Used to draw a line between points
+        var linestring = {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": []
+            }
+        };
+
+        var map = new mapboxgl.Map({
+            container: 'mymap', // container id
+            style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+            center: [-0.12, 51.505], // starting position [lng, lat]
+            zoom: 10.5 // starting zoom
+        });
+
+        function asd(x, y, lng1, lat1, lng2, lat2) {
+            var p1 = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        //e.lngLat.lng,
+                        //e.lngLat.lat
+                        x, y
+                    ]
+                }
+            }
+            var p2 = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        lng1,
+                        lat1
+                    ]
+                }
+            }
+            var p3 = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        lng2,
+                        lat2
+                    ]
+                }
+            }
+
+            var features = map.queryRenderedFeatures({
+                layers: ['measure-points']
+            });
+
+            while (true) {
+                if (geo.features.length <= 0) {
+                    break;
+                } else {
+                    geo.features.pop();
+                }
+            }
+
+            geo.features.push(p1);
+            geo.features.push(p2);
+            geo.features.push(p1);
+            geo.features.push(p3);
+
+            if (geo.features.length > 1) {
+                //alert(geo.features.length);
+
+                linestring.geometry.coordinates = geo.features.map(function(p1) {
+                    return p1.geometry.coordinates;
+                });
+
+                linestring.geometry.coordinates = geo.features.map(function(p2) {
+                    return p2.geometry.coordinates;
+                });
+
+                linestring.geometry.coordinates = geo.features.map(function(p1) {
+                    return p1.geometry.coordinates;
+                });
+
+                linestring.geometry.coordinates = geo.features.map(function(p3) {
+                    return p3.geometry.coordinates;
+                });
+
+
+                geo.features.push(linestring);
+            }
+
+            map.getSource('geo').setData(geo);
+        }
+
+
+        map.on('load', function() {
+            // Add the source to query. In this example we're using
+            // county polygons uploaded as vector tiles
+
+            map.addSource('geo', {
+                "type": "geojson",
+                "data": geo
+            });
+
+            map.addLayer({
+                id: 'measure-points',
+                type: 'circle',
+                source: 'geo',
+                paint: {
+                    'circle-radius': 5,
+                    'circle-color': '#000'
+                },
+                layout: {
+                    'visibility': 'visible'
+                },
+                filter: ['in', '$type', 'Point']
+            });
+            map.addLayer({
+                id: 'lines',
+                type: 'line',
+                source: 'geo',
+                layout: {
+                    'visibility': 'visible',
+                    'line-cap': 'round',
+                    'line-join': 'round'
+                },
+                paint: {
+                    'line-color': '#963',
+                    'line-width': 10
+                },
+                filter: ['in', '$type', 'LineString']
+            });
+
+            map.addSource('dots', {
+                "type": "vector",
+                "url": "mapbox://swpark706.1yhj3yv8"
+            });
+
+            map.addLayer({
+                'id': 'places',
+                'type': 'circle',
+                'source': 'dots',
+                'source-layer': 'londondots-bekmaa',
+                paint: {
+                    'circle-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'london_weight'],
+                        100, 'RGB(217, 236, 252)',
+                        500, 'RGB(159, 208, 248)',
+                        1000, 'RGB(63, 161, 240)',
+                        5000, 'rgb(14, 109, 186)',
+                        10000, 'rgb(9, 73, 125)',
+                        50000, 'rgb(5, 38, 65)',
+                        100000, 'rgb(3, 25, 43)',
+                    ],
+                    'circle-radius': ['number', ['get', 'london_radius']],
+                    'circle-opacity': 0.7
+                }
+
+
+            });
+
+            map.addLayer({
+                "id": "places-highlighted",
+                "type": "circle",
+                "source": 'dots',
+                'source-layer': 'londondots-bekmaa',
+
+                'paint': {
+                    'circle-radius': ['number', ['get', 'london_radius']],
+                    'circle-color': '#FF00FF',
+                    'circle-opacity': 1.0
+                },
+                "filter": ["<", ["number", ["get", "london_weight"]], 0]
+            }, 'settlement-label');
+
+            map.on('click', 'places', function(e) {
+                map.flyTo({
+                    center: e.features[0].geometry.coordinates
+                });
+
+                //asd(e.features[0].properties.lng, e.features[0].properties.lat, -0.10387, 51.45229);
+                map.getCanvas().style.cursor = 'pointer';
+
+                if (!e.features.length) {
+                    return;
+                }
+
+
+                var feature = e.features[0];
+
+                var relatedFeatures = map.querySourceFeatures('dots', {
+                    sourceLayer: 'londondots-bekmaa',
+                    filter: ['>=', ['number', ['get', 'london_weight']], feature.properties.london_weight]
+                });
+
+                if (feature.properties.london_radius <= 3) {
+                    return;
+                }
+
+                var filterOne = ['==', ['number', ['get', 'london_donut']], feature.properties.london_donut];
+                map.setFilter('places-highlighted', filterOne);
+                //map.setFilter('places-highlighted', ['all', filterOne, filterTwo]);
+
+
+                asd(e.features[0].properties.lng, e.features[0].properties.lat, 0, 0, 50, 40);
+
+                /*
+                map.setFilter('places-highlighted', ["all", ['==', ['number', ['get', 'london_donut']], feature.properties.london_donut],
+                    ['==', ['number', ['get', 'london_pie']], feature.properties.london_pie]
+                ]);
+                */
+
+                var popup = new mapboxgl.Popup({
+                        offset: [0, -15]
+                    })
+                    .setLngLat(feature.geometry.coordinates)
+
+
+                    .setHTML('<div id=\'popup\' class=\'popup\' style=\'z-index: 10;\'> <h5> Detail: </h5>' +
+                        '<ul class=\'list-group\'>' +
+                        '<li class=\'list-group-item\'> Donut: ' + feature.properties.lng + ' </li>' +
+                        '<li class=\'list-group-item\'> Pie: ' + feature.properties.lat + ' </li>' +
+                        '<li class=\'list-group-item\'> id Count: ' + feature.properties.london_id + ' </li></ul></div><div><button id=abc onclick=fun(' + feature.properties.lng + ',' + feature.properties.lat + ');>Add to my Trip</button></div>')
+                    .addTo(map);
+            });
+        });
+
+        document.getElementById('filterT').addEventListener('change', function(e) {
+            var filterTwits;
+            var twits = e.target.value;
+
+            if (twits === 'all') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 0];
+            } else if (twits === '500') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 500];
+            } else if (twits === '1000') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 1000];
+            } else if (twits === '5000') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 5000];
+            } else if (twits === '10000') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 10000];
+            } else if (twits === '50000') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 50000];
+            } else if (twits === '100000') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 100000];
+            }
+            map.setFilter('places', ['all', filterTwits]);
+
+        });
+
+        document.getElementById('filterN').addEventListener('change', function(e) {
+            var filterTwits;
+            var twits = e.target.value;
+
+            if (twits === 'all') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 0];
+            } else if (twits === '500') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 500];
+            } else if (twits === '1000') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 1000];
+            } else if (twits === '5000') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 5000];
+            } else if (twits === '10000') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 10000];
+            } else if (twits === '50000') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 50000];
+            } else if (twits === '100000') {
+                filterTwits = ['>=', ['number', ['get', 'london_weight']], 100000];
+            }
+            map.setFilter('places', ['all', filterTwits]);
+
+        });
+
+        geojson.feature.forEach(function(marker) {
+
+            var el = document.createElement('div');
+            el.className = 'marker';
+            el.id = marker.properties.id;
+            el.style.backgroundImage = 'url(' + marker.properties.src + ')';
+            el.style.width = marker.properties.iconSize[0] + 'px';
+            el.style.height = marker.properties.iconSize[1] + 'px';
+
+            el.addEventListener('click', function() {
+                //window.alert(marker.properties.message);
+                //여기에 경로그리기
+            });
+
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .setPopup(new mapboxgl.Popup()
+                    .setHTML('<h3>' + marker.properties.message + '</h3><p>' + marker.properties.src + '</p>'))
+                .addTo(map);
+        });
+
+    </script>
+    <p style="color: white"> 주요 관광 지역 </p>
+    <div class="item">
+        <ul id="content-slider" class="content-slider">
+            <li>
+                <img src="images/london/round_Buckingham_Palace.png" style="width: 100px" title="버킹엄 궁전" onclick="relayout('Marker_Buckingham_Palace');">
+            </li>
+            <li>
+                <img src="images/london/round_London_Eye.png" style="width: 100px" title="런던 아이">
+            </li>
+            <li>
+                <img src="images/london/round_Tower_Bridge.png" style="width: 100px" title="타워 브릿지" onclick="relayout('Marker_Tower_Bridge');">
+            </li>
+            <li>
+                <img src="images/london/round_Trafalgar_Square.png" style="width: 100px" title="트라팔가 광장" onclick="relayout('Marker_Trafalgar_Square');">
+            </li>
+            <li>
+                <img src="images/london/round_Hyde_Park.png" style="width: 100px" title="하이드 파크" onclick="relayout('Marker_Hyde_Park');">
+            </li>
+            <li>
+                <img src="images/london/round_Saint_Paul.png" style="width: 100px" title="세인트 폴 대성당">
+            </li>
+            <li>
+                <img src="images/london/round_Westminster_Abbey.png" style="width: 100px" title="웨스트민스터 사원">
+            </li>
+        </ul>
+        <br><br><br><br>
+    </div>
+    <div id="footer">
+        <a href="#">
+            <div style="border: 1px solid gray; float: left; padding: 10px; width: 18.5%; text-align: center;">
+                <img src="images/homepage.png" style="height: 40px">
+            </div>
+        </a>
+        <a href="#">
+            <div style="border: 1px solid gray; float: left; padding: 10px; width: 18.5%; text-align: center;">
+                <img src="images/chat.png" style="height: 40px">
+            </div>
+        </a>
+        <a href="#">
+            <div style="border: 1px solid gray; float: left; padding: 10px; width: 18.5%; text-align: center;">
+                <img src="images/star.png" style="height: 40px">
+            </div>
+        </a>
+        <a href="#">
+            <div style="border: 1px solid gray; float: left; padding: 10px; width: 18.5%; text-align: center;">
+                <img src="images/refresh.png" style="height: 40px">
+            </div>
+        </a>
+        <a href="#">
+            <div style="border: 1px solid gray; float: left; padding: 10px; width: 18.5%; text-align: center;">
+                <img src="images/menu.png" style="height: 40px">
+            </div>
+        </a>
+    </div>
+
+</body>
+
+</html>

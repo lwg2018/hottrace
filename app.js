@@ -8,10 +8,10 @@ require('dotenv').config();
 
 // 모듈드 영역
 // var indexRouter = require('./routes/index');
-var selectRouter = require('./routes/postSelect');
-var insertRouter = require('./routes/postInsert');
-var deleteRouter = require('./routes/postDelete');
-var updateRouter = require('./routes/postUpdate');
+//var selectRouter = require('./routes/postSelect');
+//var insertRouter = require('./routes/postInsert');
+//var deleteRouter = require('./routes/postDelete');
+//var updateRouter = require('./routes/postUpdate');
 
 // var memberFormRouter = require('./routes/member/memberForm');
 // var signUpRouter = require('./routes/member/signUp');
@@ -33,8 +33,6 @@ var exitChatRoomRouter = require('./routes/channel/exitChatRoom');
 var addMembersRouter = require('./routes/channel/addMembers');
 
 //지도 관련 Router
-var navigatorRouter = require('./routes/map/navigator');
-var markerRouter = require('./routes/map/marker');
 var mainmapRouter =require('./routes/map/mainmap');
 var circleLinkRouter = require('./routes/map/get_circlelink');
 
@@ -42,7 +40,7 @@ var circleLinkRouter = require('./routes/map/get_circlelink');
 var machineLearningRouter = require('./routes/machine_learning/recommand_place');
 
 //게시판 Router
-//var writeBoard = require('./route/board/write_board');
+var boardRouter = require('./routes/board/write_board');
 
 var app = express();
 
@@ -74,17 +72,6 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', indexRouter);
-app.use('/post_select',selectRouter);
-app.use('/post_insert',insertRouter);
-app.use('/post_delete',deleteRouter);
-app.use('/post_update',updateRouter);
-// app.use('/chat',chatRouter);
-// app.use('/chatRoomMake',chatRoomMakeRouter);
-// app.use('/chatRoom',chatRoomJoinRouter);
-
-// app.use('/memberForm', memberFormRouter);
-// app.use('/signUp', signUpRouter);
 app.use('/', loginFormRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
@@ -100,16 +87,12 @@ app.use('/sendMsg', messageRouter);
 app.use('/exitChatRoom', exitChatRoomRouter);
 app.use('/addMembers', addMembersRouter);
 
-app.use('/map/navigator', navigatorRouter);
-app.use('/map/marker', markerRouter);
 app.use('/main', mainmapRouter);
 app.use('/getCircleLink', circleLinkRouter);
 
 app.use('/machineLearning/recommand_place', machineLearningRouter);
 
-//app.use('/board', boardRouter);
-// app.use('/chatTest', chatTest);
-// app.use('/chatRoomTest', chatRoomJoinTest);
+app.use('/board', boardRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -124,6 +107,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
+  console.log(err.stack);
   res.render('error');
 });
 

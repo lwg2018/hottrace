@@ -1,7 +1,7 @@
-MSSQL_SERVER = '58.141.159.210'
-MSSQL_PORT = '12345'
-MSSQL_USER = 'sa'
-MSSQL_PW = 'port12345'
-MSSQL_DB_NAME = 'hottrace'
+MSSQL_SERVER = 'your ip'
+MSSQL_PORT = 'your port of mssql'
+MSSQL_USER = 'user of mssql'
+MSSQL_PW = 'pw of user'
+MSSQL_DB_NAME = 'mssql db name'
 
-MODELS_PATH = 'C:/Users/LWG/PycharmProjects/hottrace/city_model/'
+MODELS_PATH = 'machine learning models path'

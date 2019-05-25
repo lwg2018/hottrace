@@ -76,7 +76,7 @@
             $slide = '',
             scene = 0,
             property = (settings.vertical === true) ? 'height' : 'width',
-            gutter = (settings.vertical === true) ? 'margin-bottom' : 'margin-right',
+            gutter = (settings.vertical === true) ? 'margin-bottom' : '50px',
             slideValue = 0,
             pagerWidth = 0,
             slideWidth = 0,

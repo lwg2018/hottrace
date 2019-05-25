@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<!--
+	Transitive by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+
+<head>
+    <title>Elements - Transitive by TEMPLATED</title>
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+    <style>
+        /* Rating Star Widgets Style */
+        .rating-stars ul {
+            list-style-type: none;
+            padding: 0;
+
+            -moz-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .rating-stars ul>li.star {
+            display: inline-block;
+
+        }
+
+        /* Idle State of the stars */
+        .rating-stars ul>li.star>i.fa {
+            font-size: 2.5em;
+            /* Change the size of the stars */
+            color: #ccc;
+            /* Color on idle state */
+        }
+
+        /* Hover state of the stars */
+        .rating-stars ul>li.star.hover>i.fa {
+            color: #FFCC36;
+        }
+
+        /* Selected state of the stars */
+        .rating-stars ul>li.star.selected>i.fa {
+            color: #FF912C;
+        }
+
+    </style>
+</head>
+
+<body class="subpage">
+    <script>
+        function go_list(){
+            location.href = "/board?review_donut=" + "<%=review_donut%>" + "&review_pie=" + "<%=review_pie%>";
+        }
+        
+        $(document).ready(function() {
+
+            /* 1. Visualizing things on Hover - See next part for action on click */
+            $('#stars li').on('mouseover', function() {
+                var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+                // Now highlight all the stars that's not after the current hovered star
+                $(this).parent().children('li.star').each(function(e) {
+                    if (e < onStar) {
+                        $(this).addClass('hover');
+                    } else {
+                        $(this).removeClass('hover');
+                    }
+                });
+
+            }).on('mouseout', function() {
+                $(this).parent().children('li.star').each(function(e) {
+                    $(this).removeClass('hover');
+                });
+            });
+
+
+            /* 2. Action to perform on click */
+            $('#stars li').on('click', function() {
+                var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+                var stars = $(this).parent().children('li.star');
+
+                for (i = 0; i < stars.length; i++) {
+                    $(stars[i]).removeClass('selected');
+                }
+
+                for (i = 0; i < onStar; i++) {
+                    $(stars[i]).addClass('selected');
+                }
+
+                // JUST RESPONSE (Not needed)
+                /*
+                var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                var msg = "";
+                if (ratingValue > 1) {
+                    msg = "Thanks! You rated this " + ratingValue + " stars.";
+                } else {
+                    msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+                }
+                /*
+                var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                var msg = "";
+                if (ratingValue > 1) {
+                    msg = "Thanks! You rated this " + ratingValue + " stars.";
+                } else {
+                    msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+                }
+                /*
+                var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                var msg = "";
+                if (ratingValue > 1) {
+                    msg = "Thanks! You rated this " + ratingValue + " stars.";
+                } else {
+                    msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+                }
+                /*
+                var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                var msg = "";
+                if (ratingValue > 1) {
+                    msg = "Thanks! You rated this " + ratingValue + " stars.";
+                } else {
+                    msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+                }
+                /*
+                var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                var msg = "";
+                if (ratingValue > 1) {
+                    msg = "Thanks! You rated this " + ratingValue + " stars.";
+                } else {
+                    msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+                }
+                /*
+                var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                var msg = "";
+                if (ratingValue > 1) {
+                    msg = "Thanks! You rated this " + ratingValue + " stars.";
+                } else {
+                    msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+                }
+                /*
+                var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                var msg = "";
+                if (ratingValue > 1) {
+                    msg = "Thanks! You rated this " + ratingValue + " stars.";
+                } else {
+                    msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+                }
+                /*
+                var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                var msg = "";
+                if (ratingValue > 1) {
+                    msg = "Thanks! You rated this " + ratingValue + " stars.";
+                } else {
+                    msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+                }
+                
+                responseMessage(msg);
+                */
+            });
+
+
+        });
+
+        /*
+                function responseMessage(msg) {
+                    $('.success-box').fadeIn(200);
+                    $('.success-box div.text-message').html("<span>" + msg + "</span>");
+                }
+                */
+
+    </script>
+
+
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo"><img src="../images/feather2.png" style="width:15px;"><span> made by </span><a href="index.html">HOT TRACE</a></div>
+        <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header>
+
+    <!-- Nav -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/profile">프로필</a></li>
+            <li><a href="/logout">로그아웃</a></li>
+        </ul>
+    </nav>
+
+    <!-- One -->
+    <section id="one" class="wrapper style2">
+        <div class="inner">
+            <div class="box">
+                <div class="content">
+
+                    <!-- Elements -->
+
+                    <div class="row 200%">
+
+
+                    </div>
+                    <div class="6u$ 12u$(medium)">
+
+
+                        <!-- Form -->
+                        <h3 style="font-family: 'Nanum Gothic', sans-serif">리뷰 남기기</h3>
+
+                        <form method="post" action="/board/write_review">
+                            <input type="hidden" name="review_donut" value=<%=review_donut%>>
+                            <input type="hidden" name="review_pie" value=<%=review_pie%>>
+                            <div class="row uniform">
+
+
+                                <div class="12u$" style="padding-left: 40px;">
+
+                                    <section class='rating-widget'>
+
+                                        <!-- Rating Stars Box -->
+                                        <div class='rating-stars text-center'>
+                                            <ul id='stars' style="margin-bottom: 0.1rem;">
+                                                <li class='star' title='Poor' data-value='1' style="width: 15%;">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='Fair' data-value='2' style="width: 15%;">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='Good' data-value='3' style="width: 15%;">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='Excellent' data-value='4' style="width: 15%;">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                                <li class='star' title='WOW!!!' data-value='5' style="width: 15%;">
+                                                    <i class='fa fa-star fa-fw'></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!--
+                                        <div class='success-box'>
+                                            <div class='clearfix'></div>
+                                            
+                                            <div class='text-message'></div>
+                                            <div class='clearfix'></div>
+                                        </div>
+                                        -->
+
+
+                                    </section>
+                                    <!--
+                                    <footer id="a-footer">
+
+
+                                        <div class="affiliate-container" style="justify-content: center;">
+                                            <a href="https://wordpress.com/alp/?aff=17623&cid=1874995" target="_blank" class="wp-overlay-link"></a>
+                                        </div>                               </footer>
+                                    -->
+
+
+                                </div>
+
+
+                                <div class="6u 12u$(xsmall)" style="padding-left: 0;">
+                                    <ul>
+                                        <li style="list-style-type: none;">
+                                            <input type="text" name="board_time" id="demo-name" value="" placeholder="머문 시간(시간)" style=" font-family: 'Nanum Gothic', sans-serif; width: 48%; float: left;" />
+
+                                            <input type="text" name="board_money" id="demo-email" value="" placeholder="지출" style="font-family: 'Nanum Gothic', sans-serif; width: 48%; float: right;" />
+                                        </li>
+
+                                    </ul>
+
+
+                                </div>
+
+                                <!-- Break -->
+
+                                <!-- Break -->
+                                <div class="4u 12u$(small)" style="width: 100%;">
+                                    <!--
+                                    <input type="radio" id="visited-alone" name="demo-priority" checked>
+                                    <label for="visited-alone">Alone</label>
+                                    <input type="radio" id="visited-couple" name="demo-priority">
+                                    <label for="visited-couple">Couple</label>
+                                    <input type="radio" id="visited-3-6" name="demo-priority">
+                                    <label for="visited-3-6">3 - 6 Persons</label>
+                                    <input type="radio" id="visited-7-10" name="demo-priority">
+                                    <label for="visited-7-10">7 - 10 Persons</label>
+                                    <input type="radio" id="visited-10-over" name="demo-priority">
+                                    <label for="visited-10-over">Over 10 Persons</label>
+-->
+                                    <input type="text" name="board_people" id="group_persons" value="" placeholder="몇 명이서 방문했나요?" style="font-family: 'Nanum Gothic', sans-serif; width: 100%; " />
+                                </div>
+
+                                <!-- Break -->
+
+
+                                <div class="12u$">
+                                    <input type="text" name="board_title" id="posting_title" value="" placeholder="제목" style="font-family: 'Nanum Gothic', sans-serif;" />
+                                </div>
+                                <!-- Break -->
+                                <div class="12u$">
+                                    <textarea name="board_content" id="demo-message" placeholder="내용" rows="6" style="font-family: 'Nanum Gothic', sans-serif;"></textarea>
+                                </div>
+                                <div class="6u 12u$(small)">
+                                    <input type="radio" id="d" name="d" checked>
+                                    <label for="d" style="margin-bottom: 0; font-family: 'Nanum Gothic', sans-serif;">공개</label>
+                                    <input type="radio" id="dv" name="d">
+                                    <label for="dv" style="margin-bottom: 0; font-family: 'Nanum Gothic', sans-serif;">비공개</label>
+                                    <label><span style="font-family:'Nanum Gothic', sans-serif; color: #a6a6a6; font-size: 11px;">'비공개'로 설정하면 별점만 반영되며, 내용은 공개되지 않습니다.</span></label>
+                                </div>
+
+                                <!-- Break -->
+                                <div class="12u$">
+                                    <ul class="actions">
+                                        <div class="9u 12u$(small)">
+                                            <input type="text" name="board_file" id="query" value="" class="query" style="font-family: 'Nanum Gothic', sans-serif" placeholder="업로드할 이미지를 올려주세요." />
+                                        </div>
+                                        <li><Button class="button special fit" style="font-family:'Nanum Gothic', sans-serif" onclick="function1();">이미지 업로드</Button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="row uniform">
+                                <div class="9u 12u$(small)">
+                                    <input type="submit" value="올리기" style="font-family: 'Nanum Gothic', sans-serif;" class="fit" />
+                                </div>
+<!--
+                                <div class="3u$ 12u$(small)">
+                                </div>
+-->
+                            </div>
+                        </form>
+                        <div class="row uniform">
+                        <div class="9u 12u$(small)">
+                        <button style="font-family: 'Nanum Gothic', sans-serif;" class="fit alt" onclick=go_list();>목록으로</button></div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper">
+        <div class="inner">
+            <section>
+
+            </section>
+            <div class="copyright">
+                &copy; Untitled Design: <a href="https://templated.co/">TEMPLATED</a>. Images <a href="https://unsplash.com/">Unsplash</a> Video <a href="http://coverr.co/">Coverr</a>.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/jquery.scrolly.min.js"></script>
+    <script src="../assets/js/jquery.scrollex.min.js"></script>
+    <script src="../assets/js/skel.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   req.session.destroy();
 
-  res.redirect('index', {title : 'Express', id : null ,logined : false});
+  res.redirect('/');
 });
 
 module.exports = router

@@ -5,13 +5,13 @@ var MsSql = require('mssql');
 /* Get Login page */
 router.get('/', function(req, res, next) {
     if(req.session.logined == true){
-        req.session.city = 'London'
-        req.session.circleClicked = false
-        res.redirect('/main')
+//        req.session.city = 'London'
+//        req.session.circleClicked = false
+        res.redirect('/main');
         //res.render('main', {result: true});
     }
     else{
-        res.render('logIn/loginForm', {result: false});
+        res.render('logIn/loginForm');
     }
 });
 
@@ -35,17 +35,20 @@ router.post('/', function(req, res, next) {
       var memberInfo = row.recordset[0];
       if(row.rowsAffected != 0){
         var sess = req.session;
-        sess.member_no = memberInfo.email;
+        sess.email = memberInfo.email;
+        sess.userage = memberInfo.age;
+        sess.username = memberInfo.name;
         sess.logined = true;
-        sess.circleClicked = false
+        sess.member_no = memberInfo.member_no;
+        //sess.circleClicked = false
 
         // console.log('member_no_sess : ' + sess.member_no);
-        sess.city = 'London'
-        res.redirect('/main')
+        //sess.city = 'London'
+        res.redirect('/main');
         //res.render('main', {result: true});
         // res.render('index', {member_no : sess.member_no});
       }else{
-        res.render('logIn/loginForm', {result: false});
+        res.render('logIn/loginForm', {login: false});
       }
       MsSql.close();
     });

@@ -15,10 +15,13 @@ router.get('/', function(req, res, next) {
       console.log("Connected successfully to Mongodb");
 
       var db = client.db(process.env.DB_MONGO_NAME);
+        console.log(db);
+    //db.authenticate('sa', 'port27017', function(err,res){
       var collection = db.collection('Messages');
 
       var chatroom_no = parseInt(req.query.chatroom_no);
-      var member_no = parseInt(sess.member_no);
+       var member_no = parseInt(sess.member_no);
+        //var member_no = parseInt('10');
       var chatroom_title = req.query.chatroom_title;
 
       collection.find({channel_no: chatroom_no}).toArray(function(err, docs) {
@@ -29,6 +32,7 @@ router.get('/', function(req, res, next) {
       });
 
       client.close();
+    //});
     });
   }else{
     res.redirect('/');
