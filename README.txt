@@ -1,38 +1,38 @@
-¼¼°è µµ½Ã ÇÖ ÇÃ·¹ÀÌ½º ¾Û
-ÃÖÁ¾ ¼öÁ¤ÀÏ : 2019.05.25
+ì„¸ê³„ ë„ì‹œ í•« í”Œë ˆì´ìŠ¤ ì•±
+ìµœì¢… ìˆ˜ì •ì¼ : 2019.05.25
 
--------------- ½ÃÀÛÇÏ±â Àü --------------
-node.js¸¦ ±â¹ÝÀ¸·Î ÇÕ´Ï´Ù.
-Áöµµ ¹× µ¥ÀÌÅÍ Ç¥½Ã´Â mapbox API¸¦ »ç¿ëÇÕ´Ï´Ù.
+-------------- ì‹œìž‘í•˜ê¸° ì „ --------------
+node.jsë¥¼ ê¸°ë°˜ìœ¼ë¡œ í•©ë‹ˆë‹¤.
+ì§€ë„ ë° ë°ì´í„° í‘œì‹œëŠ” mapbox APIë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.
 
-1) mssql¿¡ hottrace µ¥ÀÌÅÍº£ÀÌ½º¸¦ »ý¼ºÇØÁÖ¼¼¿ä.
-2) ./hottrace.sql ÆÄÀÏÀ» ½ÇÇàÇØÁÖ¼¼¿ä.
-3) ./python Æú´õÀÇ appenv.py¿¡ ÀÚ½ÅÀÇ È¯°æ¿¡ ¸Â´Â °ªÀ» ³Ö¾îÁÖ¼¼¿ä.
-4) ./.envÆÄÀÏ¿¡ ÀÚ½ÅÀÇ È¯°æ¿¡ ¸Â´Â °ªÀ» ³Ö¾îÁÖ¼¼¿ä.
-½ÃÀÛ - 8¹øÂ° ÁÙ±îÁö mssqlÀÇ È¯°æÀÌ¸ç 10 - ¸¶Áö¸· ÁÙ±îÁö´Â mongodbÀÇ È¯°æÀÔ´Ï´Ù. (¸ù°íDB´Â Ã¤ÆÃ µ¥ÀÌÅÍ ÀúÀå½Ã »ç¿ë)
-5) ./view ¹ØÀÇ °¢ µµ½Ã ÆÄÀÏ(London, paris, manchester)ÀÇ accessToken°ú mapbox µ¥ÀÌÅÍ¸íÀ» ¹Ù²ãÁÖ¼¼¿ä.
-mapbox µ¥ÀÌÅÍ¸íÀº mssqlÀÇ htCircle Å×ÀÌºí µ¥ÀÌÅÍ¸¦ csv·Î »ÌÀº µÚ mapboxÀÇ Áöµµ µ¥ÀÌÅÍ¿¡ »ðÀÔÇÏ¿©¾ß ÇÕ´Ï´Ù.
-±× µÚ, ±× Áöµµ µ¥ÀÌÅÍ¸¦ map.addLayerÀÇ 'source-layer' Å°ÀÇ value°ªÀ¸·Î ³Ö¾îÁÖ¼¼¿ä.(±âÁ¸ °ªÀº "city¸í_circle")
+1) mssqlì— hottrace ë°ì´í„°ë² ì´ìŠ¤ë¥¼ ìƒì„±í•´ì£¼ì„¸ìš”.
+2) ./hottrace.sql íŒŒì¼ì„ ì‹¤í–‰í•´ì£¼ì„¸ìš”.
+3) ./python í´ë”ì˜ appenv.pyì— ìžì‹ ì˜ í™˜ê²½ì— ë§žëŠ” ê°’ì„ ë„£ì–´ì£¼ì„¸ìš”.
+4) ./.envíŒŒì¼ì— ìžì‹ ì˜ í™˜ê²½ì— ë§žëŠ” ê°’ì„ ë„£ì–´ì£¼ì„¸ìš”.
+ì‹œìž‘ - 8ë²ˆì§¸ ì¤„ê¹Œì§€ mssqlì˜ í™˜ê²½ì´ë©° 10 - ë§ˆì§€ë§‰ ì¤„ê¹Œì§€ëŠ” mongodbì˜ í™˜ê²½ìž…ë‹ˆë‹¤. (ëª½ê³ DBëŠ” ì±„íŒ… ë°ì´í„° ì €ìž¥ì‹œ ì‚¬ìš©)
+5) ./view ë°‘ì˜ ê° ë„ì‹œ íŒŒì¼(London, paris, manchester)ì˜ accessTokenê³¼ mapbox ë°ì´í„°ëª…ì„ ë°”ê¿”ì£¼ì„¸ìš”.
+mapbox ë°ì´í„°ëª…ì€ mssqlì˜ htCircle í…Œì´ë¸” ë°ì´í„°ë¥¼ csvë¡œ ë½‘ì€ ë’¤ mapboxì˜ ì§€ë„ ë°ì´í„°ì— ì‚½ìž…í•˜ì—¬ì•¼ í•©ë‹ˆë‹¤.
+ê·¸ ë’¤, ê·¸ ì§€ë„ ë°ì´í„°ë¥¼ map.addLayerì˜ 'source-layer' í‚¤ì˜ valueê°’ìœ¼ë¡œ ë„£ì–´ì£¼ì„¸ìš”.(ê¸°ì¡´ ê°’ì€ "cityëª…_circle")
 
--------------- µµ½Ã Ãß°¡¹ý --------------
-csv ÆÄÀÏÀ» »ç¿ëÇÕ´Ï´Ù.
-Æ®À§ÅÍ µ¥ÀÌÅÍ ±â¹Ý(À§Ä¡ Á¤º¸ Æ÷ÇÔµÇ¾îÀÖ¾î¾ß ÇÔ) ¾ÛÀÔ´Ï´Ù.
-Æ®À§ÅÍ µ¥ÀÌÅÍ´Â userº° Á¤·Ä ÈÄ ½Ã°£ ¼øÀ¸·Î Á¤·ÄµÇ¾îÀÖ¾î¾ß ÇÕ´Ï´Ù(ex: ./python/city_twitdata).
-donut(µµ½Ã Áß½É ±âÁØ °Å¸®), pie(µµ½Ã Á¤ºÏ¹æÇâ ±âÁØ °¢µµ/15µµ¾¿ ºÐ¸®), dart(donut/pie Çü½ÄÀ¸·Î ÇÕÄ£ °Í ex:5/360) ¿­ ¼Ó¼ºÀ» °¡Áö°í ÀÖ¾î¾ß ÇÕ´Ï´Ù.
-ÇÊ¿äÇÑ ¼Ó¼ºÀº lat(À§µµ), lon(°æµµ), user_id_str, user_lang, donut, pie, dart, time ÀÔ´Ï´Ù.
-ÀÌ csv ÆÄÀÏÀ» citydata_cal.py¸¦ ½ÇÇàÇÏ¿© °¡°øÇØ¾ß ÇÕ´Ï´Ù. -> °¡°øÇÑ µ¥ÀÌÅÍ°¡ ÃÖÁ¾ÀûÀ¸·Î mssql¿¡ ÀúÀåµË´Ï´Ù.
+-------------- ë„ì‹œ ì¶”ê°€ë²• --------------
+csv íŒŒì¼ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.
+íŠ¸ìœ„í„° ë°ì´í„° ê¸°ë°˜(ìœ„ì¹˜ ì •ë³´ í¬í•¨ë˜ì–´ìžˆì–´ì•¼ í•¨) ì•±ìž…ë‹ˆë‹¤.
+íŠ¸ìœ„í„° ë°ì´í„°ëŠ” userë³„ ì •ë ¬ í›„ ì‹œê°„ ìˆœìœ¼ë¡œ ì •ë ¬ë˜ì–´ìžˆì–´ì•¼ í•©ë‹ˆë‹¤(ex: ./python/city_twitdata).
+donut(ë„ì‹œ ì¤‘ì‹¬ ê¸°ì¤€ ê±°ë¦¬), pie(ë„ì‹œ ì •ë¶ë°©í–¥ ê¸°ì¤€ ê°ë„/15ë„ì”© ë¶„ë¦¬), dart(donut/pie í˜•ì‹ìœ¼ë¡œ í•©ì¹œ ê²ƒ ex:5/360) ì—´ ì†ì„±ì„ ê°€ì§€ê³  ìžˆì–´ì•¼ í•©ë‹ˆë‹¤.
+í•„ìš”í•œ ì†ì„±ì€ lat(ìœ„ë„), lon(ê²½ë„), user_id_str, user_lang, donut, pie, dart, time ìž…ë‹ˆë‹¤.
+ì´ csv íŒŒì¼ì„ citydata_cal.pyë¥¼ ì‹¤í–‰í•˜ì—¬ ê°€ê³µí•´ì•¼ í•©ë‹ˆë‹¤. -> ê°€ê³µí•œ ë°ì´í„°ê°€ ìµœì¢…ì ìœ¼ë¡œ mssqlì— ì €ìž¥ë©ë‹ˆë‹¤.
 
-ÅØ½ºÆ® ºÐ¼®À» ÇÒ ¶§¿¡´Â user_lang°ú ±× µµ½Ã°¡ »ç¿ëÇÏ´Â ¾ð¾î¸¦ ¾Ë¾Æ¾ß ÇÕ´Ï´Ù.
-ÅØ½ºÆ® ºÐ¼® ½Ã ¿µ¾î¸¦ ±â¹ÝÀ¸·Î ÇÕ´Ï´Ù.
-./python/wordsetÀÇ ´Ü¾îµéÀ» »ç¿ëÇÏ¸ç text_analyze.py¸¦ ½ÇÇàÇÕ´Ï´Ù.
+í…ìŠ¤íŠ¸ ë¶„ì„ì„ í•  ë•Œì—ëŠ” user_langê³¼ ê·¸ ë„ì‹œê°€ ì‚¬ìš©í•˜ëŠ” ì–¸ì–´ë¥¼ ì•Œì•„ì•¼ í•©ë‹ˆë‹¤.
+í…ìŠ¤íŠ¸ ë¶„ì„ ì‹œ ì˜ì–´ë¥¼ ê¸°ë°˜ìœ¼ë¡œ í•©ë‹ˆë‹¤.
+./python/wordsetì˜ ë‹¨ì–´ë“¤ì„ ì‚¬ìš©í•˜ë©° text_analyze.pyë¥¼ ì‹¤í–‰í•©ë‹ˆë‹¤.
 
-¸Ó½Å·¯´×À» »ç¿ëÇÏ·Á¸é ¸®ºä °Ô½ÃÆÇ¿¡ ¸®ºä±ÛÀÌ ÃæºÐÇØ¾ß ÇÕ´Ï´Ù(learning.py ÆÄÀÏ »ç¿ë).
-¿¹Á¦¸ðµ¨: ./python/city_model
+ë¨¸ì‹ ëŸ¬ë‹ì„ ì‚¬ìš©í•˜ë ¤ë©´ ë¦¬ë·° ê²Œì‹œíŒì— ë¦¬ë·°ê¸€ì´ ì¶©ë¶„í•´ì•¼ í•©ë‹ˆë‹¤(learning.py íŒŒì¼ ì‚¬ìš©).
+ì˜ˆì œëª¨ë¸: ./python/city_model
 
-view Æú´õ ¹Ø¿¡ µµ½Ã¸í.ejs ÆÄÀÏ·Î Ãß°¡ÇØÁÖ¼¼¿ä. ±âÁ¸ µµ½Ãµé(London, paris, manchester)ÀÇ ÄÚµå¸¦ ±×´ë·Î º¹»çÇÑ µÚ, access token°ú mapbox µ¥ÀÌÅÍ urlÀ» ¹Ù²ãÁÖ¼¼¿ä.
+view í´ë” ë°‘ì— ë„ì‹œëª….ejs íŒŒì¼ë¡œ ì¶”ê°€í•´ì£¼ì„¸ìš”. ê¸°ì¡´ ë„ì‹œë“¤(London, paris, manchester)ì˜ ì½”ë“œë¥¼ ê·¸ëŒ€ë¡œ ë³µì‚¬í•œ ë’¤, access tokenê³¼ mapbox ë°ì´í„° urlì„ ë°”ê¿”ì£¼ì„¸ìš”.
 -------------------------------------------
 
-1. ÇÊ¿äÇÑ ÆÄÀÌ½ã ¸ðµâ
+1. í•„ìš”í•œ íŒŒì´ì¬ ëª¨ë“ˆ
 1) pandas
 2) pymssql
 3) re
@@ -41,5 +41,7 @@ view Æú´õ ¹Ø¿¡ µµ½Ã¸í.ejs ÆÄÀÏ·Î Ãß°¡ÇØÁÖ¼¼¿ä. ±âÁ¸ µµ½Ãµé(London, paris, manche
 6) numpy
 7) tensorflow
 
-
-
+-------------- ì‹œìž‘ --------------
+1) app.jsê°€ ìžˆëŠ” ìœ„ì¹˜ì—ì„œ ì½˜ì†”ì°½ì„ ì—´ê³  npm start ëª…ë ¹ì–´ë¥¼ ìž…ë ¥.
+2) mongoDBë¥¼ ì‹¤í–‰í•  ìˆ˜ ìžˆëŠ” ìœ„ì¹˜ì—ì„œ ì½˜ì†”ì°½ì„ ì—´ê³  mongod ëª…ë ¹ì–´ë¡œ ì‹¤í–‰.
+3) ì›¹íŽ˜ì´ì§€ì—ì„œ í™˜ê²½ì„¤ì •ì˜ urlë¡œ ì‹œìž‘.
