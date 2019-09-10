@@ -47,3 +47,10 @@ view 폴더 밑에 도시명.ejs 파일로 추가해주세요. 기존 도시들(
 1) app.js가 있는 위치에서 콘솔창을 열고 npm start 명령어를 입력.
 2) mongoDB를 실행할 수 있는 위치에서 콘솔창을 열고 mongod 명령어로 실행.
 3) 웹페이지에서 환경설정의 url로 시작.
+
+
+
+------------- 시연 영상 Youtube url ---------------
+
+https://www.youtube.com/watch?v=Q_UrLzhIecA
+
