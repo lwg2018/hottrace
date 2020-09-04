@@ -14,7 +14,7 @@
     "express-session": "^1.15.6",
     "http-errors": "~1.6.2",
     "moment": "^2.22.2",
-    "mongodb": "^3.1.10",
+    "mongodb": "^3.1.13",
     "morgan": "^1.9.1",
     "mssql": "^4.3.0",
     "nodemon": "^1.18.2",
